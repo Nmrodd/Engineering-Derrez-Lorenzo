@@ -1,0 +1,283 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+
+\title{Rapport TD 1 : Initiation à l'algorithmique}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section{Exercice n°1}
+\subsection{Question 1 }
+\subsubsection{En algorithme}
+\begin{algorithm}
+    \caption{Test}
+    \begin{algorithmic}[1]
+        \Procedure{Test}{$b$}
+            \State $a \gets 1$
+            \State $a \gets a+a$
+            \State $T \gets$ allocArray$(10,3)$
+            \State $T[3] \gets 2$
+            \State $T[a] \gets T[a]+1$
+            \For{$i = 1$ \textbf{to} $2$}
+                \State $T[i+1] \gets T[i] + 1$
+                \If{$T[i] = 4$}
+                    \State \Return \textbf{true}
+                \EndIf
+            \EndFor
+            \State \Return \textbf{true}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+\subsubsection{En C}
+\begin{lstlisting}[language=C, caption={Exercice 1 question 1}]
+bool test(int b) {
+    int a=1;
+    a=a+a;
+    int* T=allocIntArray(10,3);
+    T[3]=2;
+    T[a]=T[a]+1;
+    T[T[a]+T[a]]=T[a]+1;
+    for(int i=1; i<=2; i++){
+        T[i+1]=T[i]+1;
+        if(T[i]==4)
+            return 1;
+    }
+    return 1;
+}
+\end{lstlisting}
+
+\subsection{Question 2}
+Traduction $C \rightarrow$ Python I1 : \\
+\begin{lstlisting}[language = Python, caption = {Exercice 1 question 2}]
+def test(b:int) -> bool:
+    a = 1
+    a = a+a 
+    T = newArray(10,3)
+    T[3] = 2
+    T[a] = T[a] + 1
+    for i in range(1, 3): 
+        T[i + 1] = T[i] + 1 
+        if T[i] == 4: 
+            return 1 
+    return 1
+
+\end{lstlisting}
+
+\section{Exercice 2}
+\subsection{Question 1}
+
+\begin{itemize}
+    \item Etant donné que le paramètre \textit{b} n'intervient pas dans le programme, la sortie du problème sera la même à chaque appel.
+    \item La sortie en question est : 
+        \subitem { [1, 4, 4, 3, 3, 3, 3, 3, 3, 3] }
+        
+\end{itemize}
+
+\subsection{Question 2}
+
+\begin{itemize}
+    \item Le problème attendu est de chercher la première occurrence de 4 dans le tableau puis de le renvoyer. 
+\end{itemize}
+
+\section{Exercice 3}
+\subsection{Question 1}
+
+\begin{itemize}
+    \item \underline{Jeu de test 1} :
+        \\
+        Entrée : x = 2; T = [1, 2, 4] 
+        \\
+        Sortie : (True, 1)
+    \item \underline{Jeu de Test 2} :
+        \\ 
+        Entrée : x = 3; T = [1, 1, 2, 3, 1]
+        \newline
+        Sortie : (True, 3)
+\end{itemize}
+
+\subsection{Question 2}
+
+\begin{itemize}
+    \item \underline{Jeu de test 1} :
+        \\
+        Entrée : [1, 2, 4] \\
+        Sortie : (False, $ \emptyset $)
+    \item \underline{Jeu de test 2} :
+        \\
+        Entrée : [1, 1, 2, 3, 1]
+        \\
+        Sortie : (False, $ \varnothing $)
+    \item \underline{Jeu de test 3} : 
+        \\
+        Entrée : [10, 3, 1]
+        \\ Sortie : (True, $ \varnothing $)
+\end{itemize}
+
+\subsection{Question 3}
+
+\begin{itemize}
+    \item Le problème est de chercher si 10 est dans T et si oui noter son indice i dans un couple puis assigner 100 à l'indice i. 
+    \\
+    \begin{algorithm}
+        \caption{Formalisme Logique de \textit{test2}}
+        \begin{algorithmic}[1]
+            \State Entrée : T un tableau d'entiers
+            \State Sortie : $\varnothing$
+            \State $(b,j) \leftarrow $ Trouver 10 dans T
+            \If{b = True}
+                \State $ T[j] \leftarrow $ 100
+            \EndIf
+        \end{algorithmic}
+    \end{algorithm}
+\end{itemize}
+
+\subsection{Question 4}
+
+\begin{algorithm}
+    \caption{ : $1^e$ solution}
+    \begin{algorithmic}[1]
+        \State Entrée : \textit{x} entier, \textit{T} tableau d'entiers
+        \State Sortie : un couple \textit{(b,i)} vérifiant la propriété de l'énoncé 
+        \Function{Appartient}{$x, T$}
+            \State (b,i) = isElement(x, T)
+            \State \Return (b,i)
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \caption{ : $2^e$ solution}
+    \begin{algorithmic}[1]
+        \State Entrée : \textit{x} entier, \textit{T} tableau d'entiers
+        \State Sortie : un couple \textit{(b,i)} vérifiant la propriété de l'énoncé
+        \Function{Appartient}{$x, T$}
+            \For{j allant de 0 à |T|-1}
+                \If{ T[j] = x}
+                    \State $ b \leftarrow $ True
+                    \State \Return (b,i)
+                \EndIf
+            \EndFor
+        \EndFunction
+    \end{algorithmic} 
+\end{algorithm}
+
+\section{Exercice 4}
+
+\subsection{Question 1}
+
+\begin{algorithm}[H]
+    \caption{yamMaxvalue \textit{(avec des fonctions auxiliaires)}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} Array[integer]
+        \State Sortie : integer 
+        \Function{yammaxvalue}{$T$}
+            \State \Return $ max(yams(T), grande_suite(T), petite_suite(T), full(T), carré(T), brelan(T)) $
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Question 2}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Yams}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{50} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Grande Suite}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{40} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Petite suite}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{30} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Full}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{25} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Carré }}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{Somme des quatres dés égaux} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Brelan}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{Somme des trois dés égaux} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \caption{\textbf{: Chance}}
+    \begin{algorithmic}
+        \State Entrée : \textit{T} tableau d'entiers
+        \State Sortie : entier vérifiant : 
+        \State \Return \textit{0} si pas vérifiée
+        \State \Return \textit{Moitié$_{inf}$ de la somme des dés} si vérifiée
+    \end{algorithmic}
+\end{algorithm}
+
+\section{Exercice 5}
+\begin{itemize}
+    \item Cela retourne le couple (100, 2).
+\end{itemize}
+
+
+\end{document}
