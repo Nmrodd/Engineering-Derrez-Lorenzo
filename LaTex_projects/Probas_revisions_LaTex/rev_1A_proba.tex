@@ -1,0 +1,179 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{microtype} %utile pour gérer les espacements entre les caractères pour des fiches de cours
+
+\usepackage{titlesec} %Modifie les \section dans leur style (avec ce qu'il y a en bas de la ligne 21 à 25)
+
+\titleformat{\section}
+  {\normalfont\bfseries}
+  {(\thesection)}
+  {0.5em}
+  {}
+
+\usepackage{enumitem} %permet d'énumerer avec un label en (a), (b), plutot que 1. 2. etc... 
+
+\title{\textbf{Révisions de probabilités de 1A}}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\rule{\textwidth}{0.4pt}  % permet de tracer le trait 
+
+\section{Probabilité sur un ensemble fini.}
+
+Soit $\Omega$ un ensemble fini non vide. Une probabilité sur $\Omega$
+est une application : 
+
+$$ 
+P : \mathcal{P}(\Omega) \longrightarrow [0,1], 
+\qquad 
+A \longmapsto P(A)
+$$
+telle que : 
+\begin{enumerate}[label=(\alph*)]
+    \item $ \textbf{P}(\Omega) = 1; $
+    \item $ \forall (A_1, A_2) \in \mathcal{P}(\Omega)^2 \quad A_1 \cap A_2 \implies \textbf{P}(A_1 \cup A_2) = \textbf{P}(A_1) + \textbf{P}(A_2); \qquad \text{[additivité]} $  
+\end{enumerate}
+
+\section{Propriétés immédiates d'une probabilité.}
+
+Soit $(\Omega, \textbf{P})$ un espace probabilisé fini. 
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{P}($\varnothing$) = 0; 
+    \item Pour tout $n \in \mathbb{N}^*$, pour toute famille $ (A_1, ..., A_n) $ d'évènements deux-à-deux incompatibles ; 
+    \[ \textbf{P}( \bigcup_{i=1}^{n} A_i ) =  \sum_{i=1}^{n} \textbf{P}( A_i ) \]
+    \item Pour tout évènement A : 
+    \[\mathbf{P}(\text{A}) = \sum_{\omega \in A}\mathbf{P}(\{\omega\}) . \]
+\end{enumerate}
+
+\section{Distribution de probabilités sur un ensemble fini.}
+
+Soit $ \Omega $ un ensemble fini non vide. Une distribution de probabilité sur $\Omega$ est une famille $(p_w)_{\omega \in \Omega} \in \mathbb{R_+}^{\Omega}$ telle que :
+\[\sum_{\omega \in \Omega}p_{\omega} = 1.\]
+
+\section{Probabilité versus distribution de probabilités.}
+
+Soit $\Omega$ un ensemble fini non vide. 
+
+\begin{enumerate}[label=(\alph*)]
+    \item Si $\mathbf{P}$ est une probabilité sur $\Omega$ alors : 
+    \[ (p_w := \mathbf{P}(\{\omega\}))_{\omega \in \Omega}\]
+    est une distribution de probabilité sur $\Omega$.
+    \item Soit $(p_{\omega})_{\omega \in \Omega}$ une distribution de probabilité sur $\Omega$. Alors l'application : 
+   \[
+        \begin{array}{c|ccc} %permet on utilise ici un array de quatre colonnes que l'on définit pour écrire les applications comme on le souhaite
+        \mathbb{P} & \mathcal{P}(\Omega) & \longrightarrow & [0,1] \\[0.3em]
+                    & A                   & \longmapsto          & \displaystyle\sum_{\omega\in A} p_\omega %displaystyle permet de conserver la taille usuelle de la somme malgré le fait d'etre dans un array 
+        \end{array}
+    \]
+    est l'unique probabilité sur $\Omega$ telle que, pour tout $\omega \in \Omega\text{, } \mathbf{P}(\{\omega\}) = p_{\omega}.$
+\end{enumerate}
+
+\section{Propriétés d'une probabilité.}
+
+Soit ($\Omega$, $\mathbf{P}$) un espace probabilisé fini.
+
+\begin{enumerate}[label=(\alph*)]
+    \item $ \forall (A, B) \in \mathbb{P}(\Omega)^2 \quad \mathbf{P}(A \cup B) = \mathbf{P}(A) + \mathbf{P}(B) - \mathbf{P}(A \cap B) $ \quad [probabilité d'une réunion]
+    \item $ \forall (A, B) \in \mathbb{P}(\Omega)^2 \quad A \subset B \implies \mathbf{P}(B \setminus A) = \mathbf{P}(B) - \mathbf{P}(A) $ \quad [probabilité d'une différence]
+    \item $ \forall A \in \mathbb{P}(\Omega) \quad \mathbf{P}(\overline{A}) = 1 - \mathbf{P}(A) $ \quad [probabilité de l'évènement contraire]
+    \item $ \forall (A, B) \in \mathbb{P}(\Omega)^2 \quad A \subset B \implies \mathbf{P}(A) \leq \mathbf{P}(B) $ \quad [croissance de la probabilité]
+\end{enumerate}
+
+\section{Propriétés conditionnelles.}
+
+Soient $(\Omega, P)$ un espace probabilisé fini, $B$ un évènement tel que $\mathbf{P} > 0$ et $A$ un évènement. La probabilité conditionnelle de $A$ sachant $B$ notée $\mathbf{P}(A|B)$ ou $\mathbf{P}_B(A)$ est définie par :
+\[\mathbf{P}(A|B) :=  \dfrac{\mathbf{P}(A \cap B)}{\mathbf{P}(B)}. \] %pour les fractions il faut utiliser dfrac{num}{den}
+
+\section{Une probabilité conditionnelle est une probabilité au sens de (1).}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $B$ un évènement tel que $\mathbf{P}(B) > 0$. Alors l'application : 
+\[
+\begin{array}{c|ccc}
+    \mathbf{P}_B & \mathbb{P}(\Omega) & \longrightarrow & [0,1]
+    \\[0.3em]
+                 & A                  & \longrightarrow & \mathbf{P}(A|B)
+\end{array}
+\]
+est une probabilité sur l'espace $\Omega$.
+
+\section{Formule des probabilités composées.}
+
+Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Soient $A$, $B$ des évènements. Alors : 
+    \[
+        \mathbf{P}(A \cap B) = \mathbf{P}(A) \times \mathbf{P}(B|A).
+    \]
+    \item Soient $n \geq 2$ et $A_1, ..., A_n$ des évènements. Alors : 
+    \[
+        \mathbf{P}(A_1 \cap ... \cap A_n) = \mathbf{P}(A_1) \times \mathbf{P}(A_2 | A_1) \times ... \times \mathbf{P}(A_n | A_1 \cap ... \cap A_{n-1}).
+    \]
+\end{enumerate}
+
+\section{Système complets d'évènements.}
+
+Soit $\Omega$ un ensemble fini. Une famille $(A_i)_{i \in I}$ d'évènements est un système complet d'évènements si :
+\begin{enumerate}[label=(\alph*)]
+    \item les $ A_i $ sont deux-à-deux incompatibles, i.e. pour tout $ (i,j) $  $\in \mathbb{I}^2  \text{tel que } i \neq j, A_i \cap A_j = \varnothing $
+    \item la réunion de tous les $A_i$ égale $\Omega$, i.e. $\bigcup_{i \in \mathcal{I}}A_i = \Omega$
+\end{enumerate}
+
+\section{Formule des probabilités totales.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $(A_1, ..., A_n)$ un système complet d'évènements. Pour tout évènement $B$ : 
+\[
+    \mathbf{P}(B) = \sum_{i=1}^{n}\mathbf{P}(B \cap A_i) = \sum_{i=1}^{n}\mathbf{P}(B|A_i)\times\mathbf{P}(A_i).
+\]
+
+\section{Formule de Bayes.}
+Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini. 
+
+\begin{enumerate}[label=(\alph*)]
+    \item Si $A$ et $B$ sont deux évènements tels que $\mathbf{P}(A)>0 \text{ et } \mathbf{P}(B)>0$, alors : 
+    \[
+        \mathbf{P}(A|B) = \mathbf{P}(B|A) \times \dfrac{\mathbf{P}(A)}{\mathbf{P}(B)} \qquad \text{[renversement du conditionnement].}
+    \] 
+    \item Soient $(A_1, ..., A_n)$ un système complet d'évènements et $B$ un évènement tel que $\mathbf{P}(B)>0$. Alors : 
+    \[ 
+        \forall i \in [|1, n|] \quad \mathbf{P}(A_i|B) = \dfrac{\mathbf{P}(B|A_i)\times\mathbf{P}(A_i)}{\displaystyle\sum_{j=1}^{n}\mathbf{P}(B|A_j)\times\mathbf{P}(A_j)}
+    \]
+\end{enumerate}
+
+\section{Loi d'une variable aléatoire.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E$ un ensemble et $X : \Omega \longrightarrow E$ une variable aléatoire. 
+
+\begin{enumerate}[label=(\alph*)]
+    \item L'application : 
+    \[
+        \begin{array}{c|ccc}
+            \mathbf{P}_X & \mathbb{P}(X(\Omega)) & \longrightarrow & [0,1]
+            \\[0.3em]
+                         & A                     & \longrightarrow & \mathbf{P}_X(A) := \mathbf{P}(X \in A)
+        \end{array}
+    \]
+    est une probabilité sur $X(\Omega)$ appelée loi de $X$.
+    \item La famille $((X = x))_{x \in X(\Omega)}$ est un système complet d'évènements.
+\end{enumerate}
+
+\section{Méthode pour déterminer la loi d'une variable aléatoire.}
+
+
+\end{document}
