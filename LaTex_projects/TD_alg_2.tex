@@ -57,9 +57,16 @@
 
 \section*{Exercice 2}
 
-Voici les différents états dans lequel se trouve la pile d'appel lors de l'exécution de \textit{f} sur l'entrée 4 : 
+Voici les différents états dans lequel se trouve la pile d'appel lors de l'exécution de \textit{f} sur l'entrée 4 :
+
+\begin{minipage}[c]{10cm}
+    \includegraphics[width=10cm]{arbre_appels_f4.png}
+\end{minipage}
+\\[0.3em]
+Alors : 
 \begin{itemize}
-    \item 
+    \item Le nombre total d'états de la pile est : $2 \times $ (nombre total d'appels de fonctions executées).
+    \item \underline{Résultat} : \textbf{48 états}.  
 \end{itemize}
 
 \section*{Exercice 3}
@@ -86,6 +93,38 @@ Voici les différents arbres d'appels que l'on peut dessiner par rapport aux 4 f
 \end{minipage}
 
 \section*{Exercice 4}
+
+\subsection*{Factorial(n)  :}
+\begin{enumerate}
+    \item Hauteur : n-1
+    \item Pile max : n 
+    \item Nombre d'appels : n 
+    \item Nombre de noeuds : n 
+\end{enumerate}
+
+\subsection*{exponentialSlow(n) :}
+\begin{enumerate}
+    \item Hauteur : n
+    \item Pile max : n+1 
+    \item Nombre d'appels : n+1 
+    \item Nombre de noeuds : n+1
+\end{enumerate}
+
+\subsection*{exponentialVerySlow(n) :}
+\begin{enumerate}
+    \item Hauteur : n
+    \item Pile max : n+1 
+    \item Nombre d'appels : 2$^{n+1}$-1 
+    \item Nombre de noeuds : 2$^{n+1}$-1
+\end{enumerate}
+
+\subsection*{Factorial(n) :}
+\begin{enumerate}
+    \item Hauteur : n
+    \item Pile max : n+1
+    \item Nombre d'appels : 
+    \item Nombre de noeuds :  
+\end{enumerate}
 
 \section*{Exercice 5}
 
