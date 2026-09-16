@@ -175,5 +175,348 @@ Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E$ un ensemble et $X
 
 \section{Méthode pour déterminer la loi d'une variable aléatoire.}
 
+Pour déterminer la loi d'une variable aléatoire $X$, on procède en deux temps.
+\begin{enumerate}[label=(\alph*)]
+    \item On détermine d'abord l'ensemble $X(\Omega)$ des valeurs prises par $X$ [première étape à ne jamais oublier].
+    \item Ensuite, on calcule sa loi en déterminant, pour tout $x \in X(\Omega)$, $\mathbf{P}(X = x)$.
+\end{enumerate}
+
+\section{Egalité en loi de deux variables aléatoires.}
+
+Soient $(\Omega_1, \mathbf{P}_1), (\Omega_2, \mathbf{P}_2)$ deux espaces probabilisés finis, et $X_1 : \Omega_1 \longrightarrow E_1, X_2 : \Omega_2 \longrightarrow E_2$ deux variables aléatoires. On dit que $X_1 \text{ et } X_2$ sont égales en loi et on note $X_1 \sim X_2$, si :
+\begin{enumerate}[label=(\alph*)]
+    \item $X_1(\Omega_1) = X_2(\Omega_2)$
+    \item les probabilités $(\mathbf{P}_1)_{X_1} \text{ et } (\mathbf{P}_2)_{X_2} \text{ sur } X_1(\Omega_1) = X_2(\Omega_2) \text{ sont égales.}$ 
+\end{enumerate}
+
+\subsection*{\textbf{\underline{ATTENTION} :}}
+\qquad -- Deux variables aléatoires peuvent être égales en loi sans être égales. 
+
+\section{Image d'une variable aléatoire.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E, F$ des ensembles, $X : \Omega \longrightarrow E$ une variable aléatoire et $f : X(\Omega) \longrightarrow F$ une application. La loi de la variable aléatoire $f \circ X$, notée $f(X)$ est entièrement déterminée par la loi de $X$, précisément : 
+\[
+    \forall A \in \mathbb{P}(f(X(\Omega))), \mathbf{P}_{f(X)}(A) = \mathbf{P}_X(f^{-1}(A)).
+\] 
+
+\section{Egalité en loi des images de deux variables aléatoires égales en loi.}
+
+Soient $(\Omega_1, \mathbf{P}_1), (\Omega_2, \mathbf{P}_2)$ deux espaces probabilisés finis, $X_1 : \Omega_1 \longrightarrow E_1, X_2 : \Omega_2 \longrightarrow E_2$ deux variables aléatoires telles que $X_1 \sim X_2$ et $f : X_1(\Omega_1) = X_2(\Omega_2) \longrightarrow F$ une application. Alors : 
+\[
+    f(X_1) \sim f(X_2).
+\]  
+
+\section{Loi conditionnelle d'une variable aléatoire sachant un évènement.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $B$ un évènement tel que $\mathbf{P}(B) > 0$, $E$ un ensemble et $X : \Omega \longrightarrow E$ une variable aléatoire. La loi conditionnelle de $X$ sachant $B$ est : 
+\[
+    \begin{array}{c|ccc}
+        \mathbf{P}_{X|B} & \mathbb{P}(X(\Omega)) & \longrightarrow & [0,1]
+        \\[0.3em]
+                         & A                     & \longrightarrow & \mathbf{P}_B(X \in A)
+    \end{array}
+\]
+qui est une probabilité sur $\Omega$, entièrement déterminée par la distribution de probabilité $(\mathbf{P}_B(X = x))_{x \in X(\Omega)}$ sur $X(\Omega)$.
+
+\section{Indépendance de deux évènements.} 
+
+Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini. Deux évènements $A, B$ sont dits indépendants si : 
+\[
+    \mathbf{P}(A \cap B) = \mathbf{P}(A) \times \mathbf{P}(B).
+\] 
+
+\section{Indépendance de deux évènements et évènements contraires.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $A, B$ deux évènements. Alors : 
+\[
+    A \text{ et } B \text{ sont indépendants } \implies A \text{ et } \overline{B} \text{ sont indépendants.}
+\]
+
+\section{Famille d'évènements mutuellement indépendants.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $(A_i)_{i \in I}$ une famille finie d'évènements. On dit que les évènements $A_i (i \in I)$ sont mutuellement indépendants si : 
+\[
+    \forall J \in \mathbb{P}(I) \quad \mathbf{P}(\bigcap_{j \in J}A_j) = \prod_{j \in J}\mathbf{P}(A_j)
+\]
+
+\subsection*{\textbf{\underline{ATTENTION}} :}
+
+\qquad -- L'indépendance deux-à-deux n'implique pas l'indépendance mutuelle. 
+
+\section{Loi conjointe et lois marginales.} 
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E, F$ deux ensembles, $X : \Omega \longrightarrow E$, $Y : \Omega \longrightarrow F$ deux variables aléatoires.
+
+\begin{enumerate}[label=(\alph*)]
+    \item La loi de la variable aléatoire : 
+    \[
+        \begin{array}{c|ccc}
+            Z := (X, Y) & \Omega & \longrightarrow & E \times F
+            \\[0.3em]
+                        & \omega & \longrightarrow & (X(\omega), Y(\omega))
+        \end{array}
+    \]
+est appelée loi conjointe de $X$ et $Y$.
+    \item Les lois de $X$ et $Y$ sont appelés lois marginales de $Z$. 
+\end{enumerate}
+
+\section{Méthode pour déterminer la loi d'un couple.}
+
+Pour déterminer la loi d'un couple $Z = (X,Y)$ de variables aléatoires, on calcule, pour tout $(x,y) \in Z(\Omega) \subset X(\Omega) \times Y(\Omega)$ : 
+
+\[
+    \mathbf{P}(X=x, Y=y) := \mathbf{P}((X=x) \cap (Y=y)).
+\]
+
+\section{La loi conjointe détermine les lois marginales.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E, F$ deux ensembles, $X : \Omega \longrightarrow E \text{ et } Y : \Omega \longrightarrow F$ deux variables aléatoires. Posons $Z = (X, Y)$. 
+
+\[
+    \forall x \in X(\Omega) \quad \mathbf{P}(X=x) = \sum_{y \in Y(\Omega)}\mathbf{P}(Z = (x,y)) \qquad \text{et} \qquad \forall y \in Y(\Omega) \quad \mathbf{P}(Y=y) = \sum_{x \in X(\Omega)}\mathbf{P}(Z = (x,y))
+\]
+La loi de $Z$ détermine donc entièrement les lois de $X$ et $Y$. 
+
+\subsection*{\underline{ATTENTION} :}
+\qquad -- Les lois marginales ne déterminent pas nécessairement la loi conjointe.
+
+\section{Indépendance de deux variables aléatoires.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E, F$ deux ensembles, $X : \Omega \longrightarrow E \text{ et } Y : \Omega \longrightarrow F$ deux variables aléatoires. On dit que $X$ et $Y$ sont indépendantes (et on note $X \perp\!\!\!\perp Y$) si : 
+\[
+    \forall (A, B) \in \mathbb{P}(X(\Omega)) \times \mathbb{P}(Y(\Omega)) \quad \mathbf{P}(X \in A, Y \in B) = \mathbf{P}(X \in A) \times \mathbf{P}(Y \in B).
+\]
+ce qui équivaut à : 
+\[
+    \forall (x,y) \in X(\Omega) \times Y(\Omega) \quad \mathbf{P}(X=x, Y=y) = \mathbf{P}(X=x) \times \mathbf{P}(Y=y).
+\]
+
+\section{Indépendance et image de deux variables aléatoires.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E, F, E', F'$ des ensembles, $X : \Omega \longrightarrow E, Y : \Omega \longrightarrow F$ deux variables aléatoires et $f : X(\Omega) \longrightarrow E', g : Y(\Omega) \longrightarrow F'$ des applications. Alors : 
+
+\[
+    X \perp\!\!\!\perp Y \implies f(X) \perp\!\!\!\perp g(Y).
+\]
+
+\section{Indépendance d'une famille de variables aléatoires.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $n \in \mathbb{N}_{\geq 2}, E_1, ..., E_n$ des ensembles et $X_1 : \Omega \longrightarrow E_1, ..., X_n : \Omega \longrightarrow E_n$ des variables aléatoires. On dit que les variables aléatoires $X_1, ... , X_n$ sont indépendantes si : 
+\[
+    \forall (A_1, ..., A_n) \in \mathbb{P}(X_1(\Omega)) \times ... \times \mathbb{P}(X_n(\Omega)) \quad ((X_1 \in A_1), ..., (X_n \in A_n)) \text{ est une famille d'évènements indépendants}
+\]
+ce qui équivaut à : 
+\[
+    \forall (x_1, ..., x_n) \in X_1(\Omega) \times ... \times X_n(\Omega) \quad \mathbf{P}(X_1 = x_1, ..., X_n = x_n) = \mathbf{P}(X_1 = x_1) \times ... \times \mathbf{P}(X_n = x_n). 
+\]
+
+\section{Lemme des coallitions.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $n \in \mathbb{N}_{\geq 2}, m \in [|1, n-1|], E_1, ..., E_n, E', F'$ des ensembles, $X_1 : \Omega \longrightarrow E_1, ..., X_n : \omega \longrightarrow E_n$ des variables aléatoires et $ f : X_1(\Omega) \times ... \times X_m(\Omega) \longrightarrow E' \text{ et } g : X_{m+1}(\Omega) \times ... \times X_n(\Omega) \longrightarrow F'$ deux applications. Alors les deux variables aléatoires : 
+\[
+    \begin{array}{c|ccc}
+        f(X_1, ..., X_m) & \Omega & \longrightarrow & E' 
+        \\[0.3em]
+                         & \omega & \longmapsto & f(X_1(\omega), ..., X_m(\omega))
+    \end{array}
+    \quad 
+    \text{ et }
+    \quad 
+    \begin{array}{c|ccc}
+        g(X_{m+1},\ldots,X_n) & \Omega & \longrightarrow & F'
+        \\[0.3em]
+                              & \omega & \longmapsto & g(X_{m+1}(\omega),\ldots,X_n(\omega))
+    \end{array}
+\]
+sont indépendantes. 
+
+\section{Espérance d'une variable aléatoire.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, et $X : \Omega \longrightarrow \mathbb{C}$ une variable aléatoire. L'espérance de $X$ est le nombre complexe $\mathbf{E}(X)$ défini par : 
+\[
+    \mathbf{E}(X) := \sum_{x \in X(\Omega)}{x \times \mathbf{P}(X=x)} \qquad \text{ [moyenne des valeurs de X pondérés par leurs probabilités]}.
+\]
+
+\section{Variable aléatoire centrée.}
+Une variable aléatoire est dite centrée si son espérance vaut $0$.
+
+\section{Formule de transfert.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E$ un ensemble, $X : \Omega \longrightarrow E$ une variable aléatoire et $f : X(\Omega) \longrightarrow \mathbb{C}$ une application.
+\[
+    \mathbf{E}(f(X)) = \sum_{x \in X(\Omega)}{f(X)P(X = x)}
+\]
+
+\section{Propriétés de l'espérance.}
+
+Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini. 
+\begin{enumerate}[label=(\alph*)]
+    \item Si $X : \Omega \longrightarrow \mathbb{C}, Y : \Omega \longrightarrow \mathbb{C}$ sont des variables aléatoires et $\lambda, \mu$ sont des complexes, alors : 
+    \[
+        \mathbf{E}(\lambda X + \mu Y) = \lambda \mathbf{E}(X) + \mu \mathbf{E}(Y) \qquad \text{ [linéarité de l'espérance].}
+    \]
+    \item Si $X : \Omega \longrightarrow \mathbb{R}$ est une variable aléatoire, alors :
+    \[
+        X \geq 0 \implies \mathbf{E}(X) \geq 0 \qquad \text{ [positivité de l'espérance].}
+    \]
+    \item Si $X : \Omega \longrightarrow \mathbb{R}, Y : \Omega \longrightarrow \mathbb{R}$ sont des variables aléatoires, alors : 
+    \[
+        X \leq Y \implies \mathbf{E}(X) \leq \mathbf{E}(Y) \qquad \text{ [croissance de l'espérance].}
+    \]
+    \item Si $X : \Omega \longrightarrow \mathbb{C}$ est une variable aléatoire, alors : 
+    \[
+        |\mathbf{E}(X)| \leq \mathbf{E}(|X|) \qquad \text{ [inégalité triangulaire].}
+    \]
+\end{enumerate}
+
+\subsection*{\underbar{Remarque} :}
+\qquad -- L'espérance possède les mêmes propriétés que l'intégrale des fonctions continues par morceaux sur un segment. 
+
+\section{Espérance d'un produit de variables aléatoires indépendantes.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $n \in \mathbb{N}_{\geq 2}$ et $X_1 : \Omega \longrightarrow \mathbb{C},\ldots, X_n : \Omega \longrightarrow \mathbb{C}$ des variables aléatoires. Si $(X_1,\ldots, X_n)$ est une famille de variables aléatoires indépendantes, alors :
+\[
+    \mathbf{E}(X_1 \ldots X_n) = \mathbf{E}(X_1) \ldots \mathbf{E}(X_n).
+\]
+
+\section{Variance et écart type d'une variable aléatoire réelle.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire. 
+\begin{enumerate}[label=(\alph*)]
+    \item La variable de $X$, notée $\mathbf{V}(X)$ est défnie par : 
+    \[
+        \mathbf{V}(X) := \mathbf{E}((X-\mathbf{E}(X))^2) \geq 0 \qquad \text{ [mesure la dispertion des valeurs de $X$ par rapport à la moyenne $\mathbf{E}(X)$].}
+    \]
+    \item L'écart type de $X$, notée $\sigma(X)$ est défini par : 
+    \[
+        \sigma(X) := \sqrt{\mathbf{V}(X)}.
+    \]
+\end{enumerate}
+
+\section{Variabl aléatoire réduite.}
+Une variable aléatoire est dite réduite si sa variance vaut 1.
+
+\section{Effet d'une transformation affine sur la variance.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire. Pour tout $(a,b) \in \mathbb{R}^2$ : 
+\[
+    \mathbf{V}(aX+b) = a^2\mathbf{V}(X)
+\]
+
+\section{Centrage et réduction d'une variable aléatoire.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire telle que $\sigma(X) > 0$. Alors la variable : 
+\[
+    \dfrac{X - \mathbf{E}(X)}{\sigma(X)}
+\]
+est centrée et réduite.
+
+\section{Formule de Koenig-Huygens pour la variance.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire. Alors : 
+\[
+    \mathbf{V}(X) = \mathbf{E}(X^2) - \mathbf{E}(X)^2.
+\]
+
+\section{Covariance de deux variables aléatoires réelles.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbb{R}, Y : \Omega \longrightarrow \mathbb{R}$ deux variables aléatoires. La covariance de $X$ et $Y$, notée $\mathbf{Cov}(X, Y)$ est défnie par : 
+\[
+    \mathbf{Cov}(X, Y) := \mathbf{E}((X - \mathbf{E}(X))(Y - \mathbf{E}(Y))). 
+\]
+de sorte que $\mathbf{Cov}(X,X) = \mathbf{V}(X)$. 
+
+\section{Propriétés de la covariance.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini. La covariance : 
+\[
+    \begin{array}{c|ccc}
+        \mathbf{Cov} & \mathbb{R}^{\Omega} \times \mathbb{R}^{\Omega} & \longrightarrow & \mathbb{R}
+        \\[0.3em]
+                     & (X, Y)                                         & \longmapsto     & \mathbf{Cov}(X, Y) = \mathbf{E}((X - \mathbf{E}(X))(Y - \mathbf{E}(Y)))
+    \end{array}
+\]
+est une forme bilinéaire, symétrique et positive sur l'ensemble $\mathbb{R}^{\Omega}$ des variables aléatoires réelles définies sur $\Omega$, i.e. : 
+\begin{enumerate}[label=(\alph*)]
+    \item $\forall (X_1, X_2, Y) \in (\mathbb{R}^{\Omega})^3, \quad \forall (\lambda_1, \lambda_2) \in \mathbb{R}^2 \quad \mathbf{Cov}(\lambda_1 X_1 + \lambda_2 X_2, Y) = \lambda_1 \mathbf{Cov}(X_1, Y) + \lambda_2 \mathbf{Cov}(X_2, Y) $
+    \item $\forall (X, Y_1, Y_2) \in (\mathbb{R}^{\Omega})^3, \quad \forall (\lambda_1, \lambda_2) \in \mathbb{R}^2 \quad \mathbf{Cov}(X, \lambda_1 Y_1 + \lambda_2 Y_2) = \lambda_1 \mathbf{Cov}(X, Y_1) + \lambda_2 \mathbf{Cov}(X, Y_2) $
+    \item $\forall (X, Y) \in (\mathbf{R}^{\Omega})^2, \quad \mathbf{Cov}(X, Y) = \mathbf{Cov}(Y, X)$
+    \item $\forall X \in \mathbf{R}^{\Omega}, \quad \mathbf{Cov}(X, X) \geq 0$
+\end{enumerate}
+
+\subsection*{\underline{Remarque} :}
+\qquad -- La covariance possède toutes les propriétés d'un produit scalaire, à l'exception du caractère défini.
+
+\section{Variables aléatoires décorellées.}
+Deux variables aléatoires sont dites décorellées si leur covariance vaut 0. 
+
+\section{Formule de Koenig-Huygens pour la covariance.}
+Soient $(\Omega, \mathbb{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbf{R}, Y : \Omega \longrightarrow \mathbf{R}$ deux variables aléatoires. Alors : 
+\[
+    \mathbf{Cov}(X, Y) = \mathbf{E}(XY) - \mathbf{E}(X) \mathbf{E}(Y). 
+\]
+
+\section{L'indépendance entraîne la décorellation.}
+
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $X : \Omega \longrightarrow \mathbb{R}, Y : \Omega \longrightarrow \mathbb{R}$ deux variables aléatoires. Alors : 
+\[  
+    X \perp\!\!\!\perp Y \quad \implies \quad X \text{ et } Y \text{ sont décorellées}.
+\]  
+
+\subsection*{\underbar{Remarque} :}
+La décorellation n'entraîne pas nécessairement l'indépendance. 
+
+\section{Variance d'une somme de variables aléatoires.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $n \geq 2$ et $(X_i : \Omega \longrightarrow \mathbb{R})_{i \in [|1, n]}$ une famille de variables aléatoires. 
+
+\begin{enumerate}[label=(\alph*)]
+    \item $ \mathbf{V}(X_1 + X_2) = \mathbf{V}(X_1) + \mathbf{V}(X_2) + 2\mathbf{Cov}(X_1, X_2) $ 
+    \item Si $X_1$ et $X_2$ sont décorellées alors $ \mathbf{V}(X_1 + X_2) = \mathbf{V}(X_1) + \mathbf{V}(X_2)$.
+    \item $ \mathbf{V}\left(\displaystyle \sum_{i = 1}^{n}X_i\right) = \displaystyle\sum_{i=1}^{n} \mathbf{V}(X_i) + 2\displaystyle\sum_{i \leq i < j \leq n} \mathbf{Cov}(X_i, X_j) $
+    \item Si $X_1, \ldots, X_n$ sont deux-à-deux décorellées alors $\mathbf{V}\left(\displaystyle\sum_{i=1}^{n}X_i\right) = \displaystyle\sum_{i=1}^{n} \mathbf{V}(X_i)$. 
+\end{enumerate}
+
+\section{Inégalité de Markov.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire telle que $X \geq 0$ et $a>0$. Alors : 
+\[
+    \mathbf{P}(X \geq a) \leq \dfrac{\mathbf{E}(X)}{a}.
+\]
+
+\section{Inégalité de Bienaymé-Tchebychev.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire et $\epsilon > 0$. Alors : 
+\[
+    \mathbf{P}(|X - \mathbf{E}(X)| \geq \epsilon) \leq \dfrac{\mathbf{V}(X)}{\epsilon^2}.
+\] 
+
+\section{Loi uniforme sur un ensemble fini non vide.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $E$ un ensemble et $X : \Omega \longrightarrow E$ une variable aléatoire. On dit que $X$ suit la loi uniforme sur $X(\Omega)$ et on note $X \sim \mathbf{U}(X(\Omega))$, si toutes les probabilités $\mathbf{P}(X = x)$, où $x \in X(\Omega)$, sont égales ou, ce qui revient au même, si : 
+\[  
+    \forall x \in X(\Omega) \quad \mathbf{P}(X = x) = \dfrac{1}{Card(X(\Omega))}.
+\]  
+
+\section{Loi de Bernoulli.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $p \in \text{]0, 1[ }, E $ un ensemble, $X : \Omega \longrightarrow E$ une variable aléatoire. On dit que $X$ suit la loi de Bernoulli de paramètre $p$ et on note $X \sim \mathbf{B}(p)$, si : 
+\[
+    X(\Omega) = \{0, 1\} \text{ et }\mathbf{P}(X = 1) = p.
+\]
+Alors : 
+\[
+    \mathbf{P}(X=0) = 1-p , \quad \mathbf{E}(X) = p , \quad \mathbf{V}(X) = p(1-p).
+\]
+
+\section{Loi d'une indicatrice.}
+Soit $A$ un évènement d'un espace probabilisé fini $(\Omega, \mathbf{P})$. Alors $\mathbf{1}_A \sim \mathbf{B}(\mathbf{P}(A)).$
+
+\section{Loi binomiale.}
+Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $(n,p) \in \mathbb{N}^* \times \text{]0, 1[, } E$ un ensemble, $X : \Omega \longrightarrow E$ une variable aléatoire. On dit que $X$ suit la loi binomiale de paramètre $(n,p)$ et on note $X \sim \mathbf{B(n,p)}$ si : 
+\[
+    X(\Omega) = [|0, n|] \quad \text{ et } \forall k \in [|0, n|] \quad \mathbf{P}(X = k) = \binom{n}{k}p^k(1-p)^{n-k}.
+\]
+Alors : 
+\[
+    \mathbf{E}(X) = np \quad , \quad \mathbf{V}(X) = np(1-p).
+\]
+
+\section{Situation de reconnaissance de loi binomiale.}
+Si l'on repère $n$ fois ($n \in \mathbb{N}^*$) une expérience de Bernoulli (i.e. une expérience aléatoire ayant deux issues : 0 et 1) de manière indépendante et si $X$ est la variable aléatoire qui compte le nombre de succès (i.e. de 1) obtenus, alors $X \sim \mathbf{B}(n,p) \text{ où } p \in \text{ ]0, 1[}$ est la probabilité de succès lors d'une réalisation de l'expérience de Bernoulli.
+
+\section{Somme de variables de Bernoulli mutuellement indépendantes.}
+Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini. Soit $X_1,\ldots, X_n$ des variables aléatoires sur $(\Omega, \mathbf{A}, \mathbf{P})$, mutuellement indépendantes, suivant la loi $\mathbf{B}(p) \text{ où } p \in \text{ ]0, 1[.}$
+Alors : 
+\[
+    X_1 + \ldots + X_n \sim \mathbf{B}(n,p).
+\]
 
 \end{document}
