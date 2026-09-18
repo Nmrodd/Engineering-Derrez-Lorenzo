@@ -1,0 +1,660 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+
+% Les deux lignes suivantes permettent d'enlever le Listing n°_ lorsque l'on fait des programmes
+\usepackage{caption}     
+\captionsetup[lstlisting]{labelformat=empty}
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+
+\title{\textbf{Rapport de TD n°2 : Programmation Impérative}}
+\author{DERREZ Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section{ERRATUM}
+\begin{enumerate}
+    \item Il y a certains \texttt{main} où il manque des \texttt{return EXIT\_SUCCESS} en fin de fonction.
+\end{enumerate}
+
+\section*{\textbf{Exercice 1} : }
+\begin{lstlisting}[language=C, caption={Opérations avec \textit{argc} et \textit{argv}}]
+    
+// Q1 
+int main(int argc, char* argv[]){
+    int i = 1; 
+    while(i<argc){ 
+        printf("%s \n", argv[i]);
+        i+=1;
+    }
+    return EXIT_SUCCESS;
+}
+
+// Q2
+
+int calc_taille1(int argc, char* argv[]){
+    if(argc>1){
+        int taille = 0;
+        int i = 0; 
+        while(argv[1][i] != 0){
+            taille +=1;
+            i +=1; 
+        }
+        return taille;
+    }
+    else{
+        return 0;
+    }
+}
+
+
+int calc_taille2(int argc, char* argv[]){
+    if(argc>1){
+        return strlen(argv[1]);
+    }
+    else{
+        return 0;
+    }
+}
+
+// Q3
+int lengthcompare(int argc, char* argv[]){
+    if(argc>2){
+        int taille1 = strlen(argv[1]);
+        int taille2 = strlen(argv[2]);
+
+        if(taille1>taille2){return taille1;}
+        else{return taille2;}
+    }
+    else{
+        if(argc==2){
+            return strlen(argv[1]);
+        }
+        else{return 0;}
+    }
+}
+
+//Q4
+int est_voyelle(char caractere){
+    if (caractere == 'a' || caractere == 'e' ||
+        caractere == 'i' || caractere == 'o' ||
+        caractere == 'u' || caractere == 'y' ||
+        caractere == 'A' || caractere == 'E' ||
+        caractere == 'I' || caractere == 'O' ||
+        caractere == 'U' || caractere == 'Y')
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int nb_voy(char *chaine){
+    int n = strlen(chaine);
+    int nb = 0;
+    int i = 0;
+
+    while (i < n)
+    {
+        if (est_voyelle(chaine[i]) == 1)
+        {
+            nb++;
+        }
+        i++;
+    }
+    return nb;
+}
+
+
+int main(int argc, char* argv[]){
+    int test1 = calc_taille2(argc, argv);
+    printf("%d\n", test1);
+    return 0;
+}
+
+// Test Q3 : 
+int main(int argc, char* argv[]){
+    int i = 1; 
+    while(i<argc){
+        int test = nb_voy(argv[i]);
+        printf("%d\n", test);
+        i+=1; 
+    }
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+
+\section*{\textbf{Question 2} :}
+
+\begin{lstlisting}[language=C, caption={Implémentationdes fonctions \textit{palindrome, isalpha, tolower}}]
+    
+// Q1 : 
+
+int est_palindrome(char* chaine){
+    int n = strlen(chaine); 
+    int i = 0; 
+    int parcours = n/2; 
+
+    int cpt = 0; 
+
+    while(i<parcours && (chaine[i] == chaine[n-1-i])){
+        i+=1; 
+        cpt+=1; 
+    }
+    
+    if(cpt == parcours){
+        return 1; 
+    }
+    return 0; 
+}
+
+// Test Q1 
+
+int main(int argc, char** argv){
+    int i = 1; 
+    while(i < argc){
+        int test_i = est_palindrome(argv[i]);
+        if (test_i == 1){
+            printf("%s est un palindrome.\n", argv[i]);
+        }        
+        else{
+            printf("%s n'est pas un palindrome. \n", argv[i]);
+        }
+        i+=1; 
+    }
+    return EXIT_SUCCESS;
+}
+
+// Q2 : 
+// #include <ctype.h>
+
+// int is_in_alph(char caractere)
+// {
+//     return isalpha(caractere);
+// }
+
+int is_in_alph(char caractere)
+{
+    if ((caractere >= 'a' && caractere <= 'z') ||
+        (caractere >= 'A' && caractere <= 'Z'))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// Test Q2 : 
+int main(int argc, char** argv){
+    int i = 0; 
+    while(i<argc){
+        int n_i = strlen(argv[i]); 
+        int j = 0; 
+        while(j<n_i){
+            int test_i = is_in_alph(argv[i][j]); 
+            if(test_i){
+                printf("%c est dans l'alphabet. \n", argv[i][j]);
+            }
+            else{
+                printf("%c n'est pas dans l'alphabet. \n", argv[i][j]);
+            }
+            j+=1;
+        }
+        i+=1;
+    }
+    return EXIT_SUCCESS;
+}
+
+// Q3 : 
+char maj_to_min(char car)
+{
+    if (car >= 'A' && car <= 'Z')
+    {
+        return car + ('a' - 'A');
+    }
+    else
+    {
+        return car;
+    }
+}
+
+int main(int argc, char **argv)
+{
+    int i = 1;
+
+    while (i < argc)
+    {
+        int n_i = strlen(argv[i]);
+        int j = 0;
+
+        while (j < n_i)
+        {
+            char test_j = maj_to_min(argv[i][j]);
+
+            printf("%c", test_j);
+
+            j += 1;
+        }
+
+        printf("\n");
+        i += 1;
+    }
+
+    return 0;
+}
+
+//Q4 : 
+
+// Amelioration de la fonction palindrome : 
+int est_palindrome_update(char* chaine){
+    int n = strlen(chaine); 
+    int g = 0;
+    int d = n-1;
+
+    while(g<d){
+        while(is_in_alph(chaine[g]) == 0 && g<d){
+            g+=1;
+        }
+        while(is_in_alph(chaine[d]) == 0 && g<d){
+            d-=1;
+        }
+        if(g>d){
+            break;
+        }
+        if(maj_to_min(chaine[g]) == maj_to_min(chaine[d])){
+            d-=1;
+            g+=1;
+        }
+        else{
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+\end{lstlisting}
+
+\section*{\textbf{Exercice 3} :}
+\begin{lstlisting}[language=C, caption={Implémentation de la fonction \textit{chaine miroir}}]
+
+//Q1 :
+
+void chaine_miroir(char* chaine){
+    int n = strlen(chaine); 
+    int i = 0; 
+    while(i<n){
+        printf("%c", chaine[n-1-i]);
+        i+=1;         
+    }
+    printf("\n");
+}
+
+// Autre methode Q1 : 
+char* chaine_miroir_update(char* chaine){
+    int n = strlen(chaine); 
+    int i = 0; 
+    char* tab = malloc((n+1)*sizeof(char));
+    tab[n] = 0;
+    while(i<n){
+        printf("%c", chaine[n-1-i]);
+        tab[i] = chaine[n-1-i];
+        i+=1;         
+    }
+    printf("\n");
+    return tab;
+}
+
+
+int main(int argc, char** argv){
+    int i = 1; 
+    while(i<argc){
+        chaine_miroir(argv[i]); 
+        i+=1; 
+    }
+    return EXIT_SUCCESS;
+}
+
+// Q2 : 
+// Etant donne que ma fonction de Q1 ne modifie jamais le tableau, je me suis contente de mettre const char* en modification
+
+void chaine_miroir_2(const char* chaine){
+    int n = strlen(chaine); 
+    int i = 0; 
+    while(i<n){
+        printf("%c", chaine[n-1-i]);
+        i+=1;         
+    }
+    printf("\n");
+}
+
+int main(int argc, char** argv){
+    int i = 1; 
+    while(i<argc){
+        chaine_miroir(argv[i]); 
+        i+=1; 
+    }
+    return EXIT_SUCCESS;
+}
+//Avec l'autre methode : 
+
+// Autre methode Q1 : 
+char* chaine_miroir_2_update(const char* chaine){
+    int n = strlen(chaine); 
+    int i = 0; 
+    char* tab = malloc((n+1)*sizeof(char));
+    tab[n] = 0;
+    while(i<n){
+        printf("%c", chaine[n-1-i]);
+        tab[i] = chaine[n-1-i];
+        i+=1;         
+    }
+    printf("\n");
+    return tab;
+}
+
+\end{lstlisting}
+
+\section*{\textbf{Exercice 4} :}
+\begin{lstlisting}[language=C, caption={Implémentation de la fonction \textit{itoa}}]
+    
+// Q1 : 
+
+void int_to_a(int code){
+    int taille = 1; 
+    int odg = 1;
+    
+    while(code>=odg*10){
+        odg = odg*10;
+        taille+=1;
+    }
+
+    char chaine[taille+1]; 
+    chaine[taille] = 0;
+    taille--; 
+    
+    int i = 0; 
+
+    while(odg>0){
+        char val = '0' + (code/odg);
+        chaine[i] = val;
+        code = code%odg;
+        odg=odg/10;
+        printf("%c", val);
+        i+=1;
+    }
+    printf("\n");
+}
+
+// Q2 : 
+
+// Extension avec les entiers signes : 
+void int_to_a_signed(int code){
+    if(code >= 0){
+        int_to_a(code);
+    }
+    else{
+        // Il faudrait seulement gerer le cas INT_MIN autrement car cette methode ne fonctionne pas pour lui
+        printf("-");
+        int_to_a(code-2*code);
+    }
+}
+
+// Q3 : 
+// Test des fonctions : 
+
+// Test Q1 
+int main(int argc, char** argv){
+    int i = 1; 
+    while(i<argc){
+        int t_i = atoi(argv[i]);
+        int_to_a(t_i);
+        i+=1;
+    }   
+    return EXIT_SUCCESS;
+}
+
+// Test Q2 : 
+// A COMPLETER // 
+
+\end{lstlisting}
+
+\section*{\textbf{Exercice 5 }:}
+\begin{lstlisting}[language=C, caption={Implémentation de la fonction \textit{atoi} pour un tableau d'entiers, puis de caractères}]
+    
+int* atoi_tab(char* chaine, int *taille){
+    int n = strlen(chaine); 
+    int i = 0; 
+
+    int cpt = 0;
+    int* tab = malloc(n*sizeof(int));
+    while(i<n){
+        if(chaine[i] != ' '){
+            int j = i+1; 
+            while(j<n && chaine[j] != ' '){
+                j+=1; 
+            }
+            char chaine_i[j-i+1];
+            int l = 0; 
+            int temp = i;
+            chaine_i[j-i] = 0; 
+            while(l<(j-i)){
+                chaine_i[l] = chaine[temp];
+                l+=1; 
+                temp+=1;
+            }
+            tab[cpt] = atoi(chaine_i);
+            cpt++; 
+            i = j;
+        }
+        else{
+            i+=1;
+        }
+    }
+    *taille=cpt;
+    return tab;
+}
+
+void affiche_tab(int* tab, int n){
+    int i = 0; 
+    while(i<n){
+        printf("%d ", tab[i]);
+        i+=1;
+    }
+    printf("\n");
+}
+
+int main(int argc, char** argv){
+    int i = 1; 
+    int taille; 
+    while (i<argc){
+        int* tab = atoi_tab(argv[i], &taille);
+        affiche_tab(tab, taille);
+        free(tab);
+        i+=1; 
+    }
+}
+
+// Q2 : 
+#include <ctype.h>
+
+
+int* atoi_tab2(char* chaine, int *taille){
+    int n = strlen(chaine); 
+    int i = 0; 
+
+    int cpt = 0;
+    int* tab = malloc(n*sizeof(int));
+    while(i<n){
+        if(isdigit(chaine[i])!=0){
+            int j = i+1; 
+            while(j<n && (isdigit(chaine[j])!=0)){
+                j+=1; 
+            }
+            char chaine_i[j-i+1];
+            int l = 0; 
+            int temp = i;
+            chaine_i[j-i] = 0; 
+            while(l<(j-i)){
+                chaine_i[l] = chaine[temp];
+                l+=1; 
+                temp+=1;
+            }
+            tab[cpt] = atoi(chaine_i);
+            cpt++; 
+            i = j;
+        }
+        else{
+            i+=1;
+        }
+    }
+    *taille=cpt;
+    return tab;
+}
+
+int main(int argc, char** argv){
+    int i = 1; 
+    int taille; 
+    while (i<argc){
+        int* tab = atoi_tab2(argv[i], &taille);
+        affiche_tab(tab, taille);
+        free(tab);
+        i+=1; 
+    }
+    Return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{\textbf{Exercice 6} : }
+
+\begin{lstlisting}[language=C, caption={Implémentation du \textit{selection sort} pour des tableaux d'entiers et decaractères}]
+    // Q1 : 
+
+//Implementation du tri par selection 
+
+void selection_sort(int* tab, int n){
+    int i = 0;
+
+    int indx_ppvl = i;
+    int buff_ppl = tab[0];
+
+    while(i<n){
+        int j = i+1; 
+        indx_ppvl = i;
+        buff_ppl = tab[i];
+        while(j<n){
+            if(tab[j] < buff_ppl){
+                buff_ppl = tab[j];
+                indx_ppvl = j;
+            }
+            j+=1; 
+        }
+        int buff = tab[i]; 
+        tab[i] = buff_ppl; 
+        tab[indx_ppvl] = buff;
+        i+=1;
+        
+    }
+}
+
+// Test Q1 : 
+
+void affiche_tab(int* tab, int n){
+    int i = 0; 
+    while(i<n){
+        printf("%d ", tab[i]);
+        i+=1;
+    }
+    printf("\n");
+}
+
+int main(int argc, char** argv){
+    int i = 1; 
+    int* tab = malloc((argc-1)*sizeof(int));
+    while(i<argc){
+        int x = atoi(argv[i]);
+        tab[i-1] = x; 
+        i+=1;
+    }
+    affiche_tab(tab, argc-1);
+    selection_sort(tab, argc-1);
+    affiche_tab(tab, argc-1);
+    free(tab);
+    return EXIT_SUCCESS;
+}   
+
+// Q2 : 
+
+void lexico_sort(char** tab, int n){
+    int i = 0; 
+
+    int indx_ppl = 0; 
+    char* buff_ppl = tab[0];
+
+    while(i<n){
+        int j = i+1; 
+        indx_ppl = i; 
+        buff_ppl = tab[i];
+        while(j<n){
+            if(strcmp(buff_ppl, tab[j]) > 0){
+                buff_ppl = tab[j]; 
+                indx_ppl = j; 
+            }
+            j+=1;
+        }
+        char* buff = tab[i]; 
+        tab[i] = buff_ppl; 
+        tab[indx_ppl] = buff; 
+        i+=1;
+    }
+}
+
+void affiche_tab_char(char* chaine){
+    int n = strlen(chaine); 
+    int i = 0; 
+    while(i<n){
+        printf("%c",chaine[i]);
+        i+=1;
+    }
+    printf("\n");
+}
+
+int main(int argc, char** argv){
+    lexico_sort((argv+1), argc-1); // Ici il faut decaler le pointeur pour eviter de prendre en compte ./exo6_exec dans le tri. Il faut alors diminuer la taille de argc. 
+    int i = 1; 
+    while(i<argc){
+        affiche_tab_char(argv[i]); 
+        i+=1;
+    }
+    return EXIT_SUCCESS;
+}
+
+\end{lstlisting}
+
+\end{document}
