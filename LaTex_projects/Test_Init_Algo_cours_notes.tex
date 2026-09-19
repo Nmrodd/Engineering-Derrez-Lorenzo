@@ -1,0 +1,215 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{microtype} %utile pour gérer les espacements entre les caractères pour des fiches de cours
+
+\title{\textbf{Test de résumé : Initiation à l'algorithmique}}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{$1^{e}$ idée fondamentale} : Un algorithme n'est correct que relativement à un problème.}
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- Un problème est une relation (entrée, sortie), pas une fonction. Un algorithme le résout si, pour toute entrée, toute exécution termine et donne une sortie attendue. Il doit aussi être lisible et de faible complexité, mais une solution rapide et fausse ne vaut rien. 
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- Plusieurs sorties peuvent être acceptables pour une même entrée. Le non-déterminisme vient de l'aléa ou de la représentation d'une même entrée de plusieurs façons. La correction est donc une propriété de la paire (algorithme, problème), jamais de l'algorithme seul.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- L'exigence de terminaison (correction totale ou partielle) est relâchée en théorie de la complexité. La définition « toute exécution » exclut les algorithmes probabilistes de type Monte Carlo. Une spécification peut aussi être mal posée sans que personne s'en aperçoive.
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Croire qu'un algorithme est correct parce qu'il passe quelques exemples, sans vérifier que la spécification couvre toutes les entrées.
+
+\section*{\textbf{$2^e$ idée fondamentale} : Un coût n'a de sens que dans un modèle de calcul explicite.}
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- La mémoire se divise en CODE, PILE (un bloc par appel, libéré au retour) et TAS (tableaux, libérés explicitement). Un type non primitif a pour valeur une adresse.
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- Après b = a sur des tableaux, a et b désignent le même objet. Il se peut alors que la pile se libère et que le tas s'accumule.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- Le choix du modèle influence les conclusions. Le type integer à coût unitaire est irréaliste, alors que Longint a un coût en log(n). Entre RAM à coût unitaire, coût logarithmique et machine de Turing, l'exposant polynomial peut changer. Les modèles non déterministes et quantiques repoussent encore la question.
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Croire que b = a copie un tableau, ou oublier qu'une « simple découpe » peut copier.
+
+
+\section*{\textbf{$3^e$ idée fondamentale} :Il existe des limites absolues et des limites pratiques.}
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- Il n'existe pas de méthode universelle pour produire un algorithme correct, ni pour décider si un algorithme termine. Même pour les problèmes décidables, certains résistent à tout algorithme polynomial connu (3SAT, sac à dos).
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- Si l'on savait résoudre « problème → algorithme correct », on saurait résoudre TERMINAISON. L'argument est une diagonalisation. Conséquence pratique : tests, typage et preuves automatiques sont toujours partiels.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- P versus NP est ouvert, et aucun algorithme polynomial n'est connu pour 3SAT. Le cours attribue l'indécidabilité à Gödel (1931). Historiquement, l'arrêt est plutôt lié à Turing et Church (1936) : Gödel est un cousin (incomplétude). De même, « presque 100 ans » pour 3SAT est à vérifier, car la NP-complétude date de 1971.
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Confondre indécidable (aucun algorithme, même très lent) et difficile (algorithme exponentiel connu).
+
+
+\section*{\textbf{$4^e$ idée fondamentale} :La complexité se mesure en fonction de la taille de l'entrée, asymptotiquement, dans le pire cas.}
+
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- La taille d'une entrée est le nombre d'octets pour la représenter. $\theta$ est une équivalence à constante près, $\theta$ une majoration. La complexité est un maximum sur les entrées de taille au plus n.
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- L'exemple « doubler 11055175255055185255 » contre « recopier une phrase 11055175255055185255 fois » sépare linéaire et exponentiel. Le nombre de chiffres compte, pas la valeur. Les constantes dépendent de la machine, donc on ne garde que le terme dominant.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- Pire cas, moyenne ou analyse lissée : QuickSort est $\theta(n^2)$ au pire mais préféré en pratique. La notation asymptotique peut masquer des constantes décisives, et certains algorithmes « galactiques » sont meilleurs en théorie mais inutilisables. Deux fonctions peuvent aussi ne pas être comparables par O.
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Mesurer en fonction de la valeur d'un entier plutôt que de sa taille.
+
+\section*{\textbf{$5^e$ idée fondamentale} : La récursivité se comprend par l'arbre des appels : temps $\sim$ nombre de noeuds, espace $\sim$ l'historique de la pile.}
+
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- Un chemin racine $\longrightarrow$ nœud de l'arbre est l'état de la pile à un instant. L'arbre est donc l'historique de la pile.
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- Chaque nœud coûte du temps, mais seuls les nœuds sur un chemin sont en mémoire simultanément. D'où temps (somme sur tous les nœuds) contre espace (max sur un chemin). Pour $f(n) = n^k + a \times f(n/b)$, on compare le travail à la racine $(n^k)$ au nombre de feuilles $(n^{(log a/log b)})$ : trois régimes. Pour $f(n) = g(n) + f(n-1),$ on cherche une primitive de g.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- « Souvent » n'est pas « toujours » : l'espace vaut la hauteur seulement si les blocs sont de taille constante et sans allocation dans le tas. En pratique, la profondeur de pile est limitée, et l'optimisation de la récursion terminale dépend du langage. Récursif ou itératif est aussi un arbitrage de lisibilité.
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Choisir la mauvaise mesure de taille.
+
+\section*{\textbf{$6^e$ idée fondamentale} :Décomposer pour recomposer, et savoir choisir le bon problème à résoudre.}
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- Décomposition, a appels récursifs, recomposition. On impose l'une des deux étapes, l'autre s'en déduit. Souvent il faut résoudre un problème plus général (ajouter des indices, enrichir la sortie) pour être efficace.
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- Le tri fusion a une décomposition triviale et une recomposition coûteuse. Le tri par pivot fait l'inverse. Pour le produit matriciel, passer de 8 à 7 appels (Strassen) change l'exposant, alors que le coût de recomposition ne change pas l'ordre de grandeur
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- Le tri fusion est optimal en temps dans le modèle par comparaisons, mais pas en espace. Le cours annonce $\theta(log n)$ pour QuickSort, ce qui suppose de bien gérer la récursion. L'exposant $\omega$ du produit matriciel est toujours inconnu
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Croire qu'une décomposition est gratuite alors que subArray copie.
+
+\section*{\textbf{$7^e$ idée fondamentale} : La programmation dynamique supprime la redondance en échangede l'espace contre du temps.}
+
+
+\subsection*{\textbf{L'idée} : }
+\qquad -- Quand les mêmes sous-problèmes reviennent, on mémorise (entrée → sortie) et on ne les recalcule plus.
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- L'arbre de $f$ est exponentiel parce que $f(3)$ est recalculé 6 fois. Avec mémoire, les appels « noirs » (nouveaux) sont au plus égaux au nombre d'entrées possibles, soit $\theta(n^2)$ ici. Les « bleus » sont au plus le double. D'où temps $\approx$ nombre d'états $\times$ coût par état, et espace $\approx$ nombre d'états stockés.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- Le « compromis espace-temps » n'est pas une loi : le DP ascendant peut souvent réduire la mémoire, mais on perd alors de quoi reconstruire la solution. Et si le nombre d'états est lui-même exponentiel, la mémoïsation ne sauve rien.
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Mémoïser sans avoir identifié l'espace d'états, ni vérifié que les sous-problèmes se recoupent vraiment.
+
+\section*{\textbf{$8^e$ idée fondamentale} : Le glouton construit le solution par choix irrévocables, et il faut savoir quand cela s'arrête de marcher.}
+
+\subsection*{\textbf{L'idée} :}
+\qquad -- À chaque étape on prend le meilleur choix local. L'écriture est itérative.
+
+
+\subsection*{\textbf{L'argument} :}
+\qquad -- Tri par sélection et tri par tas suivent le même principe glouton (extraire le minimum), mais la structure de données change le coût : $\theta(n^2)$ contre $\theta(nlog n)$. Un algorithme, c'est une idée plus une structure de données. Pour la location de salle, la stratégie correcte se démontre par un argument d'échange.
+
+
+\subsection*{\textbf{Ce qui reste discuté} :}
+\qquad -- On ne sait pas caractériser en général quand le glouton est optimal (les matroïdes couvrent une famille). Le sac à dos résiste, ce qui renvoie à P versus NP. Il est pourtant pseudo-polynomial en la taille de W. 
+
+
+\subsection*{\textbf{Piège à éviter} :}
+\qquad -- Adopter un critère glouton « évident » sans preuve ni contre-exemple.
+
+
+\section*{\textbf{Listes de Questions sur les idées fondamentales }:}
+
+\begin{enumerate}
+
+  % ---------- Idée 1 ----------
+  \item \textbf{(Idée 1)} L'algorithme \texttt{diviseur\_propre} du cours n'est pas correct sur au moins une entrée. Trouve-la. Faut-il corriger l'algorithme ou la spécification ?
+
+  \item \textbf{(Idée 1)} Un algorithme qui répond correctement avec probabilité $99{,}9\,\%$ (tirage aléatoire) résout-il le problème au sens du cours ? Qu'est-ce qui changerait pour un algorithme qui ne se trompe jamais mais dont le temps d'exécution varie ?
+
+  % ---------- Idée 2 ----------
+  \item \textbf{(Idée 2)} Dans le \texttt{naif} de la recherche, à un instant donné, combien de mémoire les sous-tableaux occupent-ils en tout, si tous sont encore vivants sur la pile ? Pourquoi obtient-on $\Theta(n)$ et non $\Theta(n \log n)$ ?
+
+  \item \textbf{(Idée 2)} Construis un algorithme qui ne fait que $n$ multiplications avec le type \texttt{integer} (coût unitaire) mais dont le résultat a $2^n$ bits. Que dit-il sur la validité du modèle ?
+
+  % ---------- Idée 3 ----------
+  \item \textbf{(Idée 3)} \texttt{TERMINAISON} est indécidable, pourtant on prouve chaque jour qu'un tri termine. Quelle est \emph{exactement} la chose impossible ? Précise les quantificateurs.
+
+  \item \textbf{(Idée 3)} Un collègue annonce un algorithme en $O(n \cdot W)$ pour le sac à dos. Contredit-il le caractère « difficile » du problème ?
+
+  % ---------- Idée 4 ----------
+  \item \textbf{(Idée 4)} Le test de primalité par divisions successives jusqu'à $\sqrt{n}$ est-il polynomial ? Réponds en fonction de la taille de l'entrée, en supposant $n$ de type \texttt{Longint}.
+
+  \item \textbf{(Idée 4)} Pourquoi définir la complexité comme le maximum sur les entrées de taille \emph{au plus} $n$ plutôt que de taille \emph{exactement} $n$ ? Quelle propriété obtient-on ?
+
+  % ---------- Idée 5 ----------
+  \item \textbf{(Idée 5)} Pour $f(n) = f(n-1) + f(n-2) + 1$, donne les ordres de grandeur du temps et de l'espace. Pourquoi ne coïncident-ils pas ?
+
+  \item \textbf{(Idée 5)} Résous $f(n) = n + f(n/2) + f(n/3)$ sans la propriété du cours (qui suppose des sous-problèmes de même taille). Quel raisonnement généralise-t-elle ?
+
+  % ---------- Idée 6 ----------
+  \item \textbf{(Idée 6)} Peut-on concevoir un tri où la décomposition et la recomposition sont toutes deux en $O(1)$ ? Sinon, que peut-on dire de leur somme, sans connaître l'algorithme ?
+
+  \item \textbf{(Idée 6)} Pour le plateau maximal, complète les ``à compléter'' (\texttt{mG}, \texttt{mD}). Pourquoi la seule longueur \texttt{m} ne suffit-elle pas à recomposer ?
+
+  % ---------- Idée 7 ----------
+  \item \textbf{(Idée 7)} Pourquoi mémoïser \texttt{triFusion} n'apporte rien alors que cela sauve \texttt{f} ? Quel critère vérifies-tu \emph{avant} de coder ?
+
+  \item \textbf{(Idée 7)} Dans \texttt{f3}, \texttt{calc} n'utilise que des sous-intervalles de longueur immédiatement inférieure. Peux-tu ramener l'espace à $\Theta(n)$ ? Que perds-tu ?
+
+  % ---------- Idée 8 ----------
+  \item \textbf{(Idée 8)} Location de salle : propose deux critères gloutons plausibles mais faux, avec un contre-exemple minimal. Quel critère fonctionne, et comment le démontrer ?
+
+  \item \textbf{(Idée 8)} Rendu de monnaie avec les pièces $\{1, 3, 4\}$ pour $6$ : que donne le glouton, et quel est l'optimal ? Pourquoi le glouton fonctionne-t-il avec les euros ? Qu'est-ce que cela dit de la frontière entre glouton et programmation dynamique ?
+
+  % ---------- Bonus ----------
+  \item \textbf{(Bonus)} Ce cours contient au moins cinq erreurs ou imprécisions. Cherche-les dans \texttt{triFusionRec}, la complexité annoncée du tri par tas, \texttt{f2aux}, la section 1.5 et le tableau comparatif \texttt{triMedian}/\texttt{quickSort}.
+
+\end{enumerate}
+
+\end{document}
