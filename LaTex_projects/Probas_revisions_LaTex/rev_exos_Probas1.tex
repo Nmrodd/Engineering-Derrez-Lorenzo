@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{microtype} %utile pour gérer les espacements entre les caractères pour des fiches de cours
+
+%\usepackage{titlesec} %Modifie les \section dans leur style (avec ce qu'il y a en bas de la ligne 21 à 25)
+%\titleformat{\section}
+ % {\normalfont\bfseries}
+ % {(\thesection)}
+  %{0.5em}
+  %{}
+
+
+\usepackage{enumitem} %permet d'énumerer avec un label en (a), (b), plutot que 1. 2. etc... 
+
+
+\title{Révisions Exos Probabilités}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{Probas 1} (prépa)}
+
+\subsection*{\textbf{CCINP 97} :}
+\subsubsection*{Question 1 :}
+
+
+\textbf{Loi de $X$ :} $X(\Omega) = \mathbb{N}$ et, pour tout $j \in \mathbb{N}$,
+\begin{align*}
+    \mathbf{P}(X=j) &= \sum_{k=0}^{+\infty} \mathbf{P}(X=j,\, Y=k) \\
+                    &= \sum_{k \in \mathbb{N}} \frac{(j+k)\left(\frac{1}{2}\right)^{j+k}}{e\, j!\, k!} \\
+                    &= \frac{1}{e\, j!\, 2^j} \left( j \sum_{k=0}^{+\infty} \frac{(1/2)^k}{k!} + \sum_{k=0}^{+\infty} \frac{k\,(1/2)^k}{k!} \right) \\
+                    &= \frac{1}{e\, j!\, 2^j} \left( j\, e^{1/2} + \frac{1}{2}\, e^{1/2} \right) \\
+                    &= \frac{1}{j!\, 2^j} \left( e^{-1/2} (j + \frac{1}{2}) \right)
+\end{align*}
+
+Par symétrie des rôles de $X$ et $Y$ :
+$Y(\Omega) = \mathbb{N}$ et pour tout $k \in \mathbb{N}$ :
+\begin{align*}
+    \mathbf{P}(Y=k) &= \frac{1}{k!\, 2^k} \left( e^{-1/2} (k + \frac{1}{2}) \right)
+\end{align*}
+
+\subsubsection*{Question 2 :}
+Remarquons,
+\\
+\begin{enumerate}
+    \item $\mathbf{P}(X=0, Y=0) = 0$
+    \item $\mathbf{P}(X=0)\mathbf{P}(Y=0) = \frac{e^{-1}}{4} $
+\end{enumerate}
+
+Par conséquent, les variables aléatoires $X$ et $Y$ ne sont pas indépendantes.
+
+
+\end{document}
