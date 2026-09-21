@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+\title{\textbf{Rapport de TD n°3 : Initiation à l'algorithmique}}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{Exercice 0 :}}
+
+\section*{\textbf{Exercice 1 :}}
+
+\text{Pour le $1^{er}$ cas :}
+\begin{itemize}
+    \item Complexité linéaire $\implies$ proportionnel à la taille en octets de l'entrée.
+    \item Après calcul on obtient en temps linéaire $96 \times 10^{-9}$ s.
+\end{itemize}
+
+\text{Pour le $2^{e}$ cas :} 
+\begin{itemize}
+    \item Après calcul on obtient en temps exponentiel environ 5 siècles. 
+\end{itemize}
+
+\section*{\textbf{Exercice 2 :}}
+\subsection*{Question 1}
+\begin{lstlisting}[language=Python, caption={Complétion de la fonction exo 2}]
+def produit (A : Matrix[integer], B : Matrix[integer]) -> Matrix[integer] :
+    (h,w) = A;shape
+    C = newMatrix(h, h, 0)
+    for i in range(h) :
+        for j in range(h) :
+            for k in range(h) :
+                C[i, j] = C[i, j] + A[i, k] * B[k, j]
+    return C 
+\end{lstlisting}
+
+\subsection*{Question 2}
+\text{Sur les entrées :}
+\qquad A, B -> $h^2$ (car w = h par hypothèse)
+\\
+\qquad On obtient : $O(h^2)$
+
+\subsection*{Question 3}
+\qquad 3 boucles imbriquées $\implies$ $O(h^3)$
+
+\subsection*{Question 4}
+\qquad  C'est cubique en h. 
+
+\subsection*{Question 5}
+\qquad C occupe une place $h^2$ $\implies O(h^2)$ (ici i, j et k sont en $O(1)$)
+
+\subsection*{Question 6}
+\qquad C'est quadratique en h. 
+
+\subsection*{Question 7}
+\qquad On pourrait réduire la complexité en espace en modifiant directement la valeur de la matrice A ligne par ligne plutôt qu'en créant une nouvelle matrice C.
+
+\subsection*{Question 8}
+\qquad En cherchant sur WWW, il est dit qu'il existe un autre algorithme, celui de \textbf{Strassen}. Ce dernier implique : $O(h^{2,807})$.
+
+
+\section*{\textbf{Exercice 3 :}}
+\subsection*{Question 1 : Arbre des appels}
+
+
+\subsection*{Question 2}
+-- Nombre d'appels récursifs : 
+\\
+-- Puis, on obtient le tableau suivant selon les types : 
+
+\section*{\textbf{Exercice 4 :}}
+
+\section*{\textbf{Exercice 5 :}}
+
+\subsection*{Question 1}
+\begin{lstlisting}[language=Python, caption={fonction \textit{longueurMaximalePlateau}}]
+def longueurMaximalePlateau(T: Array[integer]) -> integer :
+    int i = 0
+    int n = T.size
+    int max = 0
+    while(i<n) :
+        int j = 1
+        while(j<n and est_plateau(i, j, T)) :
+            j = j + 1
+        max = j - i 
+        i = i + 1 
+    return max
+\end{lstlisting}
+
+\begin{itemize}
+    \item \textbf{Complexité en temps :} 
+    \subitem 3 imbrications en lien avec n la taille du tableau $\implies$ $O(n^3)$
+    \item \textbf{Complexité en espace :}
+    \subitem toutes les opérations sont constantes $\implies O(1)$.
+\end{itemize}
+
+\subsection*{Question 2}
+\begin{itemize}
+    \item Il faut un exemple avec une chaine maximale qui n'est pas au début, et qui n'est pas à la fin non plus.
+    \item On peut prendre comme exemple : $T = [1, 1, 3, 3, 3, 2, 2, 7]$
+    \item Un taille de tableau égale à 5 serait surement possible, par exemple : $T = [1, 3, 3, 3, 7]$
+\end{itemize}
+
+\subsection*{Question 3}
+\begin{lstlisting}[language=Python, caption={Complétion du modèle de la fonction \textit{IMP}}]
+    def lmp (T : Array[integer]) -> integer : 
+        int lm = 0
+        int current = 0
+        for i in range(0, T.size) : 
+            if i > 0 and T[i] == T[i-1] : 
+                current = current + 1 
+            else : 
+                current = 1
+            if current > lm : 
+                lm = current
+        return lm 
+\end{lstlisting}
+
+\end{document}
