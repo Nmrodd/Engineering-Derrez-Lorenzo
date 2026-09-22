@@ -1,0 +1,67 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+
+\title[court]{long}
+\subtitle{long}
+\author{Derrez Lorenzo}
+\date[court]{long}
+\institute[court]{long}
+
+\begin{document}
+\maketitle
+
+\begin{frame} %C'est l'objet de base c'est la slide que l'on peut utiliser en presentation
+\frametitle{Titre du slide/ou sans titre}
+%Ecrire le contenu de la slide en LaTeX
+
+\begin{algorithm}[H]
+    \caption{Test implémentation algo}
+    \begin{algorithmic}
+        \Function{Test}{}
+            \State $ x \leftarrow 0 $;
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\end{frame}
+
+\begin{frame}
+    \begin{block}{titre_block 2}
+        \begin{itemize}
+            \item en premier
+            \item en second
+        \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\end{document}
