@@ -1,9 +1,6 @@
 \documentclass{beamer}
 \usepackage{graphicx}
 
-\usepackage{algorithmicx}
-\usepackage{algorithm2e}
-
 \usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -26,7 +23,13 @@
 \author{Derrez Lorenzo}
 
 \begin{document}
-
+\begin{frame}{\textbf{Mise en garde.}}
+    \textbf{ATTENTION :}
+    \\
+    \begin{center}
+        \qquad -- Ceci est un test de présentation par rapport à du contenu de première année de prépa. L'espace de probabilité n'est pas toujours fini, et cela modifie les hypothèses de certains des théorèmes écrit ici. 
+    \end{center}
+\end{frame}
 \begin{frame}
     \maketitle
     \centering
@@ -43,7 +46,17 @@
 
 \begin{frame}{\textbf{Formule des Probabilités totales.}}
     \begin{proof}
-        
+        Comme,
+        \begin{align*}
+            B &= B \cap \Omega \\
+            & = B \cap \bigsqcup_{i \in I} A_i \\
+            & = \bigsqcup_{i \in I} (B \cap A_i)
+        \end{align*}
+
+        Les $B \cap A_i$ étant deux à deux disjoints :
+        \[
+            P(B) = \sum_{i \in I} P(B \cap A_i) = \sum_{i \in I} P(B \mid A_i)\,P(A_i)
+        \]
     \end{proof}
 \end{frame}
 
@@ -66,7 +79,13 @@
 
 \begin{frame}{\textbf{Formule de Bayes.}}
     \begin{proof}
-        
+        Soit $i \in [|1, n]$,
+        \begin{align*}
+            \mathbf{P}(A_i | B) &= \frac{\mathbf{P}(A_i \cap B)}{\mathbf{P}(B)} \\
+            & = \frac{\mathbf{P}(A_i \cap B)}{\displaystyle\sum_{j \in I}\mathbf{P}(B|A_j)\times \mathbf{P}(A_j)} \qquad \text{[FPT avec le sqce $(A_i)_{i \in I}$]}
+            \\
+            & = \frac{\mathbf{P}(A_i)\mathbf{P}(B|A_i)}{\displaystyle\sum_{j \in I} \mathbf{P}(B|A_j)\mathbf{P}(A_j)}
+        \end{align*}
     \end{proof}
 \end{frame}
 
@@ -81,8 +100,27 @@
 
 \begin{frame}{\textbf{Inégalité de Markov.}}
     \begin{proof}
-        
-    \end{proof}
+    Considérons,
+    \[
+        \begin{array}{c|ccc}
+            \mathbf{1}_{X \geq a} & \Omega & \longrightarrow & \{0,1\}
+            \\[0.3em]
+            & \omega & \longmapsto &
+            \begin{cases}
+                1 & \text{si } X(\omega) \geq a \\
+                0 & \text{sinon}
+            \end{cases}
+        \end{array}
+    \]
+    Comme $X \geq 0$ :
+    \begin{enumerate}[label=(\alph*)]
+        \item Si $X(\omega) \geq a$, alors $X(\omega) \geq a \times 1$.
+        \item Sinon, $X(\omega) \geq 0 = a \times 0$.
+    \end{enumerate}
+    Dans tous les cas, $X \geq a \, \mathbf{1}_{X \geq a}$.
+    Par croissance de l'espérance, $\mathbf{E}(X) \geq a\,\mathbf{E}(\mathbf{1}_{X \geq a})$.
+    Or $\mathbf{E}(\mathbf{1}_{X \geq a}) = \mathbf{P}(X \geq a)$, d'où le résultat.
+\end{proof}
 \end{frame}
 
 \begin{frame}{\textbf{Inégalité de Bienaymé-Tchebychev.}}
@@ -96,7 +134,25 @@
 
 \begin{frame}{\textbf{Inégalité de Bienaymé-Tchebychev.}}
     \begin{proof}
-        
+        Posons $Y = (X - \mathbf{E}(X))^2$. C'est une variable aléatoire
+        positive, et $\epsilon^2 > 0$. \\[0.5em]
+
+        La fonction $t \longmapsto t^2$ étant strictement croissante sur
+        $\mathbb{R}_+$ :
+        \[
+            |X - \mathbf{E}(X)| \geq \epsilon
+            \iff (X - \mathbf{E}(X))^2 \geq \epsilon^2
+            \iff Y \geq \epsilon^2
+        \]
+
+        Donc, par l'inégalité de Markov appliquée à $Y$ avec $a = \epsilon^2$ :
+        \[
+            \mathbf{P}(|X - \mathbf{E}(X)| \geq \epsilon)
+            = \mathbf{P}(Y \geq \epsilon^2)
+            \leq \frac{\mathbf{E}(Y)}{\epsilon^2}
+            = \frac{\mathbf{V}(X)}{\epsilon^2}
+        \]
+        car $\mathbf{E}(Y) = \mathbf{E}\big((X - \mathbf{E}(X))^2\big) = \mathbf{V}(X)$ par définition de la variance.
     \end{proof}
 \end{frame}
 
