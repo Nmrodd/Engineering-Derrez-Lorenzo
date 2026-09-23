@@ -4,9 +4,14 @@
 \usepackage{algorithmicx}
 \usepackage{algorithm2e}
 
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
 \usepackage{pgf} %permet d'introduire des images vectorielles pour les présentations 
 \usepackage{tikz} %permet de créer des graphiques dans le texte 
 
+\usepackage{enumitem} %permet d'énumerer avec un label en (a), (b), plutot que 1. 2. etc... 
 
 \usetheme{Frankfurt}
 
@@ -14,7 +19,7 @@
 
 % Ce projet va servir pour comprendre le Beamer et TikZ tout en révisant les probas de premières années. 
 % Plus particulièrement les quelques démos importantes
-\renewcommand{\proofname}{Démonstration} %Commande qui permet de renommer le block "Theorem" par "Démonstrations"
+\renewcommand{\proofname}{Démonstration :} %Commande qui permet de renommer le block "Theorem" par "Démonstrations"
 
 
 \title{\textbf{Quelques démonstrations importantes de Probabilités de premières années}}
@@ -27,11 +32,72 @@
     \centering
 \end{frame}
 
-\begin{frame}{\textbf{Formules des Probabilités totales.}}
+\begin{frame}{\textbf{Formule des Probabilités totales.}}
     \begin{theorem}
-        
+        Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini et $(A_1, \ldots, A_n)$ un système complets d'évènements. Pour tout évènement $B$ :
+        \[
+            \mathbf{P}(B) = \displaystyle\sum_{i=1}^{n} \mathbf{P}(B \cap A_i) = \displaystyle\sum_{i=1}^{n} \mathbf{P}(B | A_i)\times \mathbf{P}(A_i)
+        \]
     \end{theorem}
+\end{frame}
 
+\begin{frame}{\textbf{Formule des Probabilités totales.}}
+    \begin{proof}
+        
+    \end{proof}
+\end{frame}
+
+\begin{frame}{\textbf{Formule de Bayes.}}
+    \begin{theorem}
+        Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini.
+        \begin{enumerate}[label=(\alph*)]
+            \item Si $A$ et $B$ sont deux évènements négligeables tels que $\mathbf{P}(A) > 0 et \mathbf{P}(B) > 0$, alors : 
+            
+            \[
+                \mathbf{P}(A|B) = \mathbf{P}(B|A) \times \frac{\mathbf{P}(A)}{\mathbf{P}(B)}    
+            \]
+            \item Soient $(A_1, \ldots, A_n)$ un système complet d'évènements et $B$ un évènement tel que $\mathbf{P}(B) > 0$. Alors :
+            \[
+                \forall i \in [[1, n]] \qquad \mathbf{P}(A_i | B) = \frac{\mathbf{P}(B|A_i)\times \mathbf{P}(A_i)}{\displaystyle\sum_{j=1}^{n}\mathbf{P}(B | A_j)\times \mathbf{P}(A_j)}
+            \]
+        \end{enumerate}
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{\textbf{Formule de Bayes.}}
+    \begin{proof}
+        
+    \end{proof}
+\end{frame}
+
+\begin{frame}{\textbf{Inégalité de Markov.}}
+    \begin{theorem}
+        Soit $(\Omega, \mathbf{P})$ un espace probabilisé fini, $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire telle que $X \geq 0$ et $a > 0$. Alors : 
+        \[
+            \mathbf{P}(X \geq a) \leq \frac{\mathbf{E}(X)}{a}.
+        \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{\textbf{Inégalité de Markov.}}
+    \begin{proof}
+        
+    \end{proof}
+\end{frame}
+
+\begin{frame}{\textbf{Inégalité de Bienaymé-Tchebychev.}}
+    \begin{theorem}
+        Soient $(\Omega, \mathbf{P})$ un espace probabilisé fini, $X : \Omega \longrightarrow \mathbb{R}$ une variable aléatoire et $\epsilon > 0$. Alors :
+        \[
+            \mathbf{P}(| X - \mathbf{E}(X) | \geq \epsilon) \leq \frac{\mathbf{V}(X)}{\epsilon^2}.
+        \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{\textbf{Inégalité de Bienaymé-Tchebychev.}}
+    \begin{proof}
+        
+    \end{proof}
 \end{frame}
 
 \end{document}
