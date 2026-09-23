@@ -38,15 +38,22 @@
 
 \section*{\textbf{Exercice 1 :}}
 
-\text{Pour le $1^{er}$ cas :}
+\noindent \textbf{Hypothèses :} 1 opération = $10^{-9}$ s (une machine à 1 milliard d'opérations par seconde). Pour une entrée de $n = 96$ octets, un algorithme linéaire effectue $n$ opérations et un algorithme exponentiel effectue $2^n$ opérations.
+
+\medskip
+\noindent Pour le $1^{er}$ cas :
 \begin{itemize}
     \item Complexité linéaire $\implies$ proportionnel à la taille en octets de l'entrée.
-    \item Après calcul on obtient en temps linéaire $96 \times 10^{-9}$ s.
+    \item Après calcul on obtient en temps linéaire $96 \times 10^{-9}\ \text{s} \approx 0{,}1\ \mu\text{s}$.
 \end{itemize}
 
-\text{Pour le $2^{e}$ cas :} 
+\medskip
+\noindent Pour le $2^{e}$ cas :
 \begin{itemize}
-    \item Après calcul on obtient en temps exponentiel environ 5 siècles. 
+    \item Complexité exponentielle $\implies$ $2^{96}$ opérations.
+    \item Calcul mental avec $2^{10} \approx 10^3$ : $2^{96} = 2^6 \times (2^{10})^9 \approx 64 \times 10^{27} \approx 6 \times 10^{28}$ opérations.
+    \item Temps : $2^{96} \times 10^{-9}\ \text{s} \approx 8 \times 10^{19}\ \text{s}$.
+    \item Avec $1\ \text{an} \approx 3 \times 10^{7}\ \text{s}$, on obtient en temps exponentiel environ $2{,}5 \times 10^{12}$ ans, soit environ 2\,500 milliards d'années.
 \end{itemize}
 
 \section*{\textbf{Exercice 2 :}}
@@ -103,21 +110,21 @@ def produit (A : Matrix[integer], B : Matrix[integer]) -> Matrix[integer] :
 \subsection*{Question 1}
 \begin{lstlisting}[language=Python, caption={fonction \textit{longueurMaximalePlateau}}]
 def longueurMaximalePlateau(T: Array[integer]) -> integer :
-    int i = 0
     int n = T.size
     int max = 0
-    while(i<n) :
-        int j = 1
-        while(j<n and est_plateau(i, j, T)) :
+    for i in range(0, n) :
+        int j = i + 1
+        while (j <= n and estPlateau(i, j, T)) :
             j = j + 1
-        max = j - i 
-        i = i + 1 
+        # T[i:j-1] est le plus grand plateau commencant en i
+        if (j - 1 - i > max) :
+            max = j - 1 - i
     return max
 \end{lstlisting}
 
 \begin{itemize}
     \item \textbf{Complexité en temps :} 
-    \subitem 3 imbrications en lien avec n la taille du tableau $\implies$ $O(n^3)$
+    \subitem 3 imbrications en lien avec n la taille du tableau $\implies$ $O(n^3)$ (car \textit{estPlateau} est linéaire en n)
     \item \textbf{Complexité en espace :}
     \subitem toutes les opérations sont constantes $\implies O(1)$.
 \end{itemize}
