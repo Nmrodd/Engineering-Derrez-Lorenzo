@@ -70,15 +70,24 @@ int nb_bits_m2(int n){
 // On souhaite utiliser l'algorithme de Hacker's Delight
 
 int hackers_delight(int n){
-    int masque = n & 1;
-
+    unsigned int masque = n;   // on travaille sur n entier, pas sur n & 1
     int cpt = 0;
 
-    while(masque != 0)
+    while (masque != 0)
     {
-        // Récupération du complément à deux : 
-
-        // Retirer le bit à 1 avec OU EXCLUSIF :
-
+        masque ^= (masque & -masque);   // isole le bit de poids faible et le retire
+        cpt++;
     }
+    return cpt;
+}
+// Test Q2 : 
+
+int main(int argc, char** argv){
+    int i = 1; 
+    while(i<argc){
+        int t_i = hackers_delight(atoi(argv[i]));
+        printf(" Le résultat du test numéro %d est : %d\n", i, t_i);
+        i+=1;
+    }
+    return EXIT_SUCCESS;
 }

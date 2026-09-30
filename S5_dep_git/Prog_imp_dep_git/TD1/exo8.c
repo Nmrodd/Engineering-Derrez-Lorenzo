@@ -35,26 +35,19 @@ void affiche_tab(int* tab, int n){
 
 // Test Q1 
 
-// int main(int argc, char* argv[]){
-//     int n = 5; 
+int main(int argc, char* argv[]){
+    int n = 5; 
     
-//     int tab[5] = {1, 4, 2, 3, 0}; 
+    int tab[5] = {1, 4, 2, 3, 0}; 
 
-//     tri_bulle(tab, n);
+    tri_bulle(tab, n);
     
-//     affiche_tab(tab, n); 
+    affiche_tab(tab, n); 
 
-//     return 0;
-// }
+    return 0;
+}
 
 // Q2 
-// In order to receive the number of comparison during the execution, we'll have to create a structure couple to get also the result of is_element and the nb_op
-// struct cpl
-// {
-//     int res; 
-//     int nb_op; 
-// };
-// typedef struct cpl cpl; 
 
 // Conjecture : let's suppose we don't need the result anymore (0 or 1) but we only put our focus on nb_op
 int is_elt(int* tab, int n, int x){

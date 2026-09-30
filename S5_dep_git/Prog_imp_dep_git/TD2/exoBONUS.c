@@ -56,17 +56,28 @@ int atoi_bonus(char* chaine){
 // "342"  -> 3 * 100 + 4 * 10 + 2 * 1 
 
 
-int main(int argc, char** argv){
-    int i = 1; 
+// int main(int argc, char** argv){
+//     int i = 1; 
     
-    while(i<argc){
-        int test_i = atoi_bonus(argv[i]);
-        printf("%d\n", test_i);
-        i+=1;
-    }
+//     while(i<argc){
+//         int test_i = atoi_bonus(argv[i]);
+//         printf("%d\n", test_i);
+//         i+=1;
+//     }
 
-    return EXIT_SUCCESS;
+//     return EXIT_SUCCESS;
+// }
+
+
+// Correction itoa pour marcher avec une conversion binaire sans écrire une deuxieme fonction 
+
+
+// La fonction doit etre capable de : 
+//          - recevoir un entier x et faire itoa 
+//          - recevoir un binaire, le convertir en entier et faire itoa 
+
+// le préfixe pour un binaire est 0b.
+
+char* itoa_modif(int x){
+    
 }
-
-
-// correction itoa pour marcher avec une conversion binaire sans écrire une deuxieme fonction 
