@@ -215,4 +215,48 @@ La complexité est en $\theta(n)$ en temps et en espace, où $n$ est la taille d
     \item Toutefois, la complexité en espace reste $\theta(n)$ car il s'agit de la mémore maximale utilisée lors de l'exécution et non le nombre total de créations, et la création de U est linéaire en n.
 \end{itemize}
 
+\section*{\textbf{Exercice 3}}
+
+\subsection*{Question 1:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{exo3_Q1_TD4_Algo.png}
+    \caption{Jeu d'exemples pour le problème de DECOMPOSITION\_PIVOT.}
+\end{figure}
+
+\subsection*{Question 2:}
+
+\begin{lstlisting}[label=Python, caption={DECOMPOSITION\_PIVOT}]
+def decomposition_pivot(T: Array[integer], a: integer, b:integer) -> integer :
+    indPivot = indice_pivot(T, a, b)
+    p = T[indPivot]
+    swap(T, a, indPivot)
+    i = a 
+    j = b 
+    while i+1 < j :
+        if T[i] > T[i+1]:
+            swap(T, i, i+1)
+            i = i + 1
+        else:
+            swap(i+1, j-1)
+            j = j - 1
+    return i 
+\end{lstlisting}
+
+\subsection*{Question 3:}
+Pour la complexité temporelle : 
+\begin{itemize}
+    \item La boucle fait b-a-1 tours. 
+    \item Chaque tours coûte $\theta(1)$ (une comparaison, un swap coûtant $\theta(1)$ et une affectation).
+\end{itemize}
+Donc, pour $b-a=n$ la taille de l'entrée, la complexité temporelle est : 
+\[\theta(n)\]
+\\
+Pour la complexité en espace :
+\\ 
+\qquad -- Seules quelques variables entières sont ajoutées et T est modifié en place. 
+\\
+Donc la complexité en espace est : $\theta(1)$
+
 \end{document}
