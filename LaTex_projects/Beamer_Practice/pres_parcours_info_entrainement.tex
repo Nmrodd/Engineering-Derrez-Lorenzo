@@ -1,17 +1,27 @@
 \documentclass{beamer}
 \usepackage{graphicx}
-
 \usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
 \usepackage{amsmath}
 \usepackage{amsthm}
-
 \usepackage{pgf} %permet d'introduire des images vectorielles pour les présentations 
 \usepackage{tikz} %permet de créer des graphiques dans le texte 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
-\usepackage[french,vlined,lined,linesnumbered,boxed]{algorithm2e}
+
+% Traduction des mots-clés d'algpseudocode
+\algrenewcommand\algorithmicrequire{\textbf{Entrée :}}
+\algrenewcommand\algorithmicensure{\textbf{Sortie :}}
+\algrenewcommand\algorithmicif{\textbf{si}}
+\algrenewcommand\algorithmicthen{\textbf{alors}}
+\algrenewcommand\algorithmicelse{\textbf{sinon}}
+\algrenewcommand\algorithmicwhile{\textbf{tant que}}
+\algrenewcommand\algorithmicdo{}
+\algrenewcommand\algorithmicreturn{\textbf{retourner}}
+
+
 
 \usetheme{Frankfurt}
-
 
 \title{\textbf{Présentation des différents types de parcours d'arbres en informatique}}
 \author{Derrez Lorenzo}
@@ -29,48 +39,41 @@
     \centering
 \end{frame}
 
-\begin{frame}{\textbf{Sommaire :}}
-    \begin{enumerate}
-        \item Parcours en largeur
-        \item Parcours en profondeur
-        \begin{itemize}
-            \item Parcours en profondeur infixe
-            \item Parcours en profondeur préfixe
-            \item Parcours en profondeur suffixe
-        \end{itemize}
-    \end{enumerate}
+\begin{frame}
+    \frametitle{Plan}
+    \tableofcontents
 \end{frame}
+
+\section{Parcours en largeur}
 
 \begin{frame}{\textbf{Parcours en largeur}}
     \begin{block}{Introduction}
         \begin{algorithm}[H]
             \footnotesize
             \caption{Parcours en largeur}
-            \Donnees{racine}
-            \If{racine est vide}{
-                \Return []
-            }
-            \Else{
-                F $\leftarrow$ creer\_file()
-                \\
-                enfiler(racine, F)
-                \\
-                \Tq{F n'est pas vide}{
-                    noeud $\leftarrow$ defiler(F)
-                    \\
-                    traiter(noeud)
-                    \\
-                    \If{noeud.gauche != nul}{
-                        enfiler(noeud.gauche)
-                    }
-                    \If{noeud.droite != nul}{
-                        enfiler(noeud.droite)
-                    }
-                }
-            }
+            \begin{algorithmic}[1]
+                \Require racine
+                \If{racine est vide}
+                    \State \Return $[\,]$
+                \Else
+                    \State $F \gets \texttt{creer\_file()}$
+                    \State \Call{enfiler}{racine, $F$}
+                    \While{$F$ n'est pas vide}
+                        \State $noeud \gets \Call{defiler}{F}$
+                        \State \Call{traiter}{noeud}
+                        \If{$noeud.gauche \neq nul$}
+                            \State \Call{enfiler}{noeud.gauche, $F$}
+                        \EndIf
+                        \If{$noeud.droite \neq nul$}
+                            \State \Call{enfiler}{noeud.droite, $F$}
+                        \EndIf
+                    \EndWhile
+                \EndIf
+            \end{algorithmic}
         \end{algorithm}
     \end{block}
 \end{frame}
+
 
 \begin{frame}{\textbf{Parcours en largeur}}
     \begin{block}{Illustrations}
@@ -84,8 +87,8 @@
         ]
             \node {4}
                 child { node {2}
-                    child { node {1} }
-                    child { node {3} }
+                   child { node {1} }
+                  child { node {3} }
                 }
                 child { node {7}
                     child { node {5} }
@@ -93,5 +96,405 @@
                 };
         \end{tikzpicture}
     \end{block}
+\end{frame}
+%Debut parcours : illus 1
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node {2}
+                   child { node {1} }
+                  child { node {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+%illus 2 
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node {1} }
+                  child { node {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% illus 3
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node {1} }
+                  child { node {3} }
+                }
+                child { node[red] {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% illus 4
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node {3} }
+                }
+                child { node[red] {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% illus 5
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node[red] {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% illus 6
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node[red] {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% illus 7
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node[red] {7}
+                    child { node[red] {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% illus 8
+\begin{frame}{\textbf{Parcours en largeur}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node[red] {7}
+                    child { node[red] {5} }
+                    child { node[red] {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+\section{Parcours en profondeur}
+\begin{frame}{\textbf{Parcours en profondeur}}
+    \qquad Il existe plusieurs parcours en profondeur. 
+    \par\medskip
+    \qquad Nous allons en présenter ici 3 différents. 
+\end{frame}
+\subsection{Infixe}
+\begin{frame}{\textbf{Parcours en profondeur Infixe}}
+    \begin{block}{Introduction}
+        \begin{algorithm}[H]
+            \footnotesize
+            \caption{DFS Infixe}
+            \begin{algorithmic}[1]
+                \Require racine
+                \If{racine est vide}
+                    \State \Return $[\,]$
+                \Else
+                    \State $resultats \gets$ liste vide
+                    \State \Call{parcourirInfixe}{racine, resultats}
+                    \State \Return resultats
+                \EndIf
+            \end{algorithmic}
+        \end{algorithm}
+    \end{block}
+\end{frame}
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node {4}
+                child { node {2}
+                   child { node {1} }
+                  child { node {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 1 
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node {4}
+                child { node {2}
+                   child { node[red] {1} }
+                  child { node {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 2
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 3
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 4
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node {7}
+                    child { node {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 5
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node {7}
+                    child { node[red] {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 6
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node[red] {7}
+                    child { node[red] {5} }
+                    child { node {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+% Illustration 7
+\begin{frame}{\textbf{Parcours en Profondeur Infixe}}
+    \begin{block}{Illustrations}
+        \centering
+        \begin{tikzpicture}[
+            nodes={draw, circle, minimum size=8mm},
+            level 1/.style={sibling distance=35mm},
+            level 2/.style={sibling distance=17mm},
+            level distance=14mm,
+            ->
+        ]
+            \node[red] {4}
+                child { node[red] {2}
+                   child { node[red] {1} }
+                  child { node[red] {3} }
+                }
+                child { node[red] {7}
+                    child { node[red] {5} }
+                    child { node[red] {9} }
+                };
+        \end{tikzpicture}
+    \end{block}
+\end{frame}
+\subsection{Postfixe}
+\begin{frame}{\textbf{Parcours en profondeur Postfixe}}
+    \begin{block}{Introduction}
+    \end{block}
+\end{frame}
+\subsection{Suffixe}
+\begin{frame}
 \end{frame}
 \end{document}
