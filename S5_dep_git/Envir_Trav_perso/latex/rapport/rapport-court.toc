@@ -1,0 +1,6 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{1}{}%
+\contentsline {section}{\numberline {2}Données}{1}{}%
+\contentsline {section}{\numberline {3}Résultats}{1}{}%
+\contentsline {section}{\numberline {4}Figure}{1}{}%
+\contentsline {section}{\numberline {5}Conclusion}{1}{}%

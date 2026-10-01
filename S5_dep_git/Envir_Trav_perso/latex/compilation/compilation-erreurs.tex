@@ -1,0 +1,39 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+
+\title{Premier document LaTeX}
+\author{Prénom Nom}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Objectif}
+
+Ce fichier contient volontairement quelques erreurs simples. Le but est de les
+repérer progressivement en lisant les messages de compilation.
+
+\section{Texte}
+
+Un document LaTeX est écrit dans un fichier source, puis compilé pour produire
+un fichier PDF.
+
+Cette phrase contient une commande mal écrite : \textbf{texte important.}
+
+\section{Liste}
+
+\begin{itemize}
+  \item un fichier source ;
+  \item un compilateur ;
+  \item un fichier PDF ;
+\end{itemize}
+
+\section{Caractères spéciaux}
+
+Certains caractères ont un sens particulier pour LaTeX : %, $, _, &, #.
+
+\end{document}

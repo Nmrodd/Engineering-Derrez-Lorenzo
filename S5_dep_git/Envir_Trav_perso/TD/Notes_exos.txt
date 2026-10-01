@@ -1,0 +1,213 @@
+////////// Exercice : Manuel (Slide 20) /////////////
+
+Q1/ man man 
+Q2/ 
+    1/ Executable ...
+    2/ System calls ...
+    3/ ..
+    ...
+    9/ Kernel routines [non standard]
+
+Q3/ 
+    a/ Pour -a : --all -> do not ignore entries starting with 
+    b/ --reverse : -a 
+    c/ rajouter -k pour avoir le poids (Cf : ls -lk) 
+
+//////////// Exercice : Enchainement et combinaisons de commandes shell 
+
+Q1/ 
+L'enchainement en question permet de revenir au répertoire parent puis de regarder ce qu'il contient ... 
+
+Q2/ 
+    a/ ls . || ls .. execute la premiere car elle est valide 
+    b/ 
+    c/ ls . && ls .. execute les deux commandes
+    d/ 
+
+///////////////// Exercice : Slide 51 //////////////////
+
+Q1/ 
+    - On donne les droits de lecture et d'écriture pour l'utilisateur et rien pour les autres. 
+    - Pour le répertoire on donne les droits : 
+        u : r w x 
+        g : x 
+        o : x 
+
+Q2/ 
+
+Q3/ Les deux façons :
+    - Pour le premier : 
+        a/ chmod u+rw g+r o+r 
+        b/         6   4   4 
+    - Pour le deuxième : 
+        a/ chmod u+rwx g+rx o+rx
+        b/ chmod   6     5    5    nom_fichier
+    - Pour le troisième : 
+        a/ chmod u+rwx g+rx o+r
+        b/         7     5   4 
+    - Pour le quatrième : 
+        a/ chmod u+r g+r o+r 
+        b/        4   4   4
+    - Pour le cinquième : 
+        a/ chmod u+r g+x 
+        b/        4   1    0
+
+Q4/ 
+
+    - Explication des droits : 
+        d : répertoire 
+        u : r w x 
+        g : r x 
+        o : x 
+On suppose que tmp se trouve dans le homedir de user
+
+On part du principe que l'on est dans le staff (pas user)
+        Les résultats : 
+            - Peut pas modifier les droits si je suis le staff ; ls fonctionne car on a l'accès à la lecture
+            - cd tmp fonctionne car je suis en droit de lecture 
+
+On part du principe que l'on est user : 
+        Les résultats : 
+            - on a le droit 
+            - on a le droit 
+            - on a le droit 
+            - on a le droit 
+            - on a pas le droit, tout le monde à uniquement l'accès en lecture et en execution et non pas en écriture
+            - chmod 755 tmp ; rm -f tmp/passwd
+
+
+// Exercice slide 58
+
+a/ La commande : echo projet/{src/{module1,module2},lib,bin} renvoit ; 
+    - projet/src/module1 projet/src/module2 projet/lib projet/bin
+
+b/ La séquence 
+    echo ${BROL:-Je ne le connais pas}
+    export BROL="Monsieur Brol"
+    echo ${BROL:-Je ne le connais pas}
+renvoit : 
+    - On définit la variable BROL et on affiche sa valeur avec echo 
+    - On exporte dans tout l'environnement de travail la variable BROL par "Monsieur Brol"
+    - On execute l'appel de la variable BROL et on l'affiche avec echo
+
+c/ La commande echo $PATH  : 
+    - Renvoit un ensemble de dossier sur l'ordinateur 
+    - correspond à l'ensemble des endroits ou les programmes se trouvent/s'exécutent 
+
+d/ La séquence :
+    - export VAR=$(date); echo $VAR
+
+    - execute en premier date dans la variable VAR 
+    - l'exporte dans tout l'environnement (meme enfants)
+    - affiche ensuite la variable VAR 
+
+e/ La séquence : 
+    export BROL="Monsieur Brol"
+    echo "$BROL et trol"
+    echo ’$BROL et trol’
+
+    - Transmet la variable BROL dans tout l'environnement 
+    - Affiche la variable et le reste du texte seul 
+    - Affiche 'la variable et le reste du texte'
+
+f/ La commande : 
+    - ls -l /usr/lib/lib[a-jt-z]??e*
+
+    - cherche les fichiers/dossiers en utilisant le format de listing long (plus de détails) pour les éléments avec un répertoire commencant par /usr/lib/lib[a-jt-z] avec un e en troisieme caractère 
+
+g/ La commande  : (une fois dans le répertoire ~mfaverge/cours/EIN5-ITEC1/Rugby/)
+    ls -l *2003*
+    ls -l */*/Joueurs/[1995,1999]*
+
+h/ La séquence : 
+    RAC=/bin
+    echo $RAC
+    echo $RAC/pwd
+    $RAC/pwd
+
+    - On introduit la variable RAC et on la définit par /bin 
+    - on affiche la variable 
+    - on affiche la variable suivi de /pwd
+    - on execute ce que contient la variable RAC avec ensuite /pwd. Cela renvoit le chemin entier jusqu'à l'endroit de l'exécution de la commande
+
+// Exercice slide 59 : 
+
+a/ La séquence : 
+    - echo /bin/[a-c]?
+
+    - affiche les éléments dans /bin qui contiennent au moins un a et un c au début
+
+b/ La séquence : 
+    echo ’/bin/[a-c]?’
+    echo "/bin/[a-c]?"
+    N=’/bin/[a-c]?’
+    echo $N
+
+    - affiche dans des ' ' les éléments dans /bin qui contiennent au moins un a et un c au début
+    - affiche en texte les éléments dans /bin qui contiennent au moins un a et un c au début 
+    - on introduit la variable N avec '/bin/[a-c]?'
+    - On execute la variable N puis on l'affiche 
+
+c/ La séquence : 
+    A=un 
+    bash; echo /$A/
+    ^D
+    export A; bash; echo /$A/
+    A=deux; B=trois; echo /$A/$B
+    ^D
+    echo /$A/$B
+
+    - on introduit la variable A et on l'initialise à un 
+    - on ouvre le bash et execute A 
+    - on fait ensuite Ctrl-D pour sortir du bash 
+    - On exporte la  variable A on ouvre le bash a nouveau et on fait de l'execution de A 
+    - On modifie la valeur de la variable A puis on initialise la variable B et on fait ensuite els deux executions successivement de A et B 
+    - On exit avec Ctrl-D 
+    - On execute A et B puis on affiche avec echo
+
+//Exercice Slide 65 : 
+
+1/ La séquence : 
+    date > tmp.txt; ls -l ~/.??* | wc -l >> tmp.txt
+
+    - On execute la commande date et on redirige la sortie dans un nouveau fichier tmp.txt 
+    - on cherche les fichiers qui s'écrivent de n'importe quel manière avec un nom_fichier.___ et l'on redirige vers un autre programme avec un | 
+    - l'autre programme va a la ligne puis redirige en ajoutant le fichier tmp.txt
+Au final on obtient dans le répertoire un fichier tmp.txt contenant : 
+    Wed Sep 16 15:04:58 CEST 2026
+    102
+
+2/ La séquence : 
+    echo $(date) : $(who | wc -l) util. sur $(hostname)
+
+    - On execute en priorité les $() 
+        - la commande date 
+        - la redirection de who avec le | dans un programme qui écrit une nouvelle ligne et -l 
+        - on recoit le hostname
+    - on affiche l'ensemble de la commande 
+
+    Au final on obtient : La date : le nombre d'utilisateurs sur le hostname
+
+3/ Pour rediriger la sortie de ls -la vers un fichier : 
+    ls -la > redir.txt
+    puis on peut aller sur le fichier pour regarder la sortie
+
+4/ 
+    - cd repertoire_inexistant/ renvoit un message d'erreur dans le terminal
+    - Pour la redirection vers le fichier err : cd repertoire_inexistant/ 2> err
+    - Aucun message d'erreur n'a été affiché dans le terminal 
+    - le fichier err a été crée et contient le message d'erreur 
+    - Pour ajouter >> : 
+        - cd repertoire_inexistant/ >> err
+        - On a le message d'erreur dans le terminal et le fichier err n'est pas modifié car >> utilise la sortie out standard et 2> la sortie d'erreur
+
+    
+/// PAR RAPPORT A SSH /// 
+ssh lderrez@ssh.enseirb-matmeca.fr 
+(taper le mot de passe) 
+
+ssh travail64 pour aller sur le serveur de compilation 
+
+Pour switch vers une autre machine de l'établissement : 
+ssh nom_machine
+(taper le mot de passe)

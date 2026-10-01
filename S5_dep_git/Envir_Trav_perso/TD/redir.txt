@@ -1,0 +1,7 @@
+total 24
+drwxr-xr-x 3 lorenzo lorenzo 4096 Sep 16 15:13 .
+drwxr-xr-x 3 lorenzo lorenzo 4096 Sep  8 17:08 ..
+drwxr-xr-x 2 lorenzo lorenzo 4096 Sep 11 15:30 EIN5-ITEC1
+-rw-r--r-- 1 lorenzo lorenzo 6268 Sep 16 15:13 Notes_exos.txt
+-rw-r--r-- 1 lorenzo lorenzo    0 Sep 16 15:14 redir.txt
+-rw-r--r-- 1 lorenzo lorenzo   34 Sep 16 15:04 tmp.txt
