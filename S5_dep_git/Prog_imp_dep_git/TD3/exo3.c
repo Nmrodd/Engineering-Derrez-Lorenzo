@@ -80,14 +80,28 @@ int hackers_delight(int n){
     }
     return cpt;
 }
-// Test Q2 : 
 
-int main(int argc, char** argv){
-    int i = 1; 
-    while(i<argc){
-        int t_i = hackers_delight(atoi(argv[i]));
-        printf(" Le résultat du test numéro %d est : %d\n", i, t_i);
-        i+=1;
-    }
-    return EXIT_SUCCESS;
-}
+// // Test Q2 : 
+// int main(int argc, char** argv){
+//     int i = 1; 
+//     while(i<argc){
+//         int t_i = hackers_delight(atoi(argv[i]));
+//         printf(" Le résultat du test numéro %d est : %d\n", i, t_i);
+//         i+=1;
+//     }
+//     return EXIT_SUCCESS;
+// }
+
+// Pour la question : "Sous quelle condition cet algorithme (Q2) est il plus efficace ? "
+
+// Il faut compter le nombre d'opérations 
+
+// Dans Hacker's Delight : 
+    // La boucle while enlève à chaque tour de boucle exactement un bit à 1 
+    // Si k est le nombre de bit à 1 dans un nombre de taille b, alors l'algo fera k itérations
+// Dans le premier algo : 
+    // on effectue dans tous les cas b itérations 
+    // en effet, vu que l'on examine les bits un par un. 
+
+// Entre autres, plus le nombre de bit à 1 est faible par rapport au nombre total de bits à parcourir, alors Hacker's Delight sera plus efficace.
+
