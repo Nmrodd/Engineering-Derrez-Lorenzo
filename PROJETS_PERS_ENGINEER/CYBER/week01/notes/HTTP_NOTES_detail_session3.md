@@ -124,3 +124,17 @@ Pourquoi il faut apprendre ces codes :
 - vérifier le contenu avec 200, la destination avec 301/302, les permissions avec 403, le chemin avec 404 et le fonctionnement du serveur avec 500.
 
 ![alt text](image-12.png)
+
+
+Question subsidiaire : 
+Que se passe-t-il entre le moment où j’écris https://example.com et le moment où la page apparaît ?
+
+Ma tentative de réponse : 
+
+Au moment ou je l'écris; 
+    - une requete est envoyé au serveur pour établir une connexion entre ma requete et les URLs qui sont sur le serveur 
+    - lorsque la connexion est établie, le partage des informations opèrent (code HTML, headline, etc...) 
+
+Une correction partielle : 
+
+![alt text](image-13.png)
