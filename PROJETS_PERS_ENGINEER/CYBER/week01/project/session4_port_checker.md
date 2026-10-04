@@ -101,3 +101,103 @@ On peut alors modifier le port_checker en conséquence pour afficher dans le ter
 
 ![alt text](image-10.png)
 
+Ainsi, le mécanisme pour le moment est : 
+127.0.0.1:8000
+      │
+      ▼
+création socket TCP
+      │
+      ▼
+tentative de connexion
+      │
+      ├── succès → port OPEN
+      │
+      └── échec  → port CLOSED
+
+
+Vocabulaire : 
+
+    - port ouvert : lorsque un service écoute dessus et accepte une connexion
+    - port fermé : aucun service n'accepte actuellement la connexion à cet emplacement
+
+Ainsi pour le moment on peut résumer ce que l'on vient de créer de la manière suivante : 
+
+Une socket permet à un programme de communiquer via le réseau.
+
+AF_INET = IPv4
+SOCK_STREAM = TCP
+
+connect_ex((ip, port)) tente une connexion TCP.
+
+Retour 0 :
+connexion réussie.
+
+Retour différent de 0 :
+échec de connexion.
+
+
+
+Autre expérience : 
+
+Dans le terminal 1, on lance le serveur: 
+python3 -m http.server 8000
+
+Dans le terminal 2, on lance le checker:
+python3 port_checker.py 127.0.0.1 8000
+
+Terminal 1
+└── serveur HTTP écoute sur le port 8000
+
+Terminal 2
+└── ton script essaie de se connecter au port 8000
+
+On observe bien les modifs dans le code python sur le port "ferme" et "ouvert" en fonction de l'exécution. 
+
+
+Pour finir la Session 4, on peut tester 3 étapes d'améliorations du checker : 
+    - Ajout d'un timeout 
+    - Ajout d'une vérification des argumentsd 
+    - faire une petite version "scan de plage" en bonus 
+
+Le tout en documentant a chaque nouvelle étape :
+
+1/ Ajout du timeout : 
+
+    // Pour éviter qu'une tentative de connexion reste bloquée trop longtemps. 
+    // sock.settimeout(1)
+
+2/ Vérification des arguments : 
+
+    // Pour éviter une erreur si on lance juste : python3 port_checker.py 
+    if len(sys.argv) != 3:
+    print("Usage: python3 port_checker.py <ip> <port>")
+    sys.exit(1)
+
+3/ Version "scan de plage" en bonus :
+
+![alt text](image-11.png)
+
+    // Il faut faire des modifications dans le port_checker donc j'ai fais un autre script que j'ai testé puis mis en commentaire dans le meme fichier .py
+
+
+    Amélioration :
+    Le programme accepte désormais une plage de ports.
+
+Arguments :
+sys.argv[1] = IP
+sys.argv[2] = port de début
+sys.argv[3] = port de fin
+
+La boucle range(start_port, end_port + 1) permet de tester
+chaque port un par un.
+
+![alt text](image-12.png)
+
+
+Une nouvelle socket est créée pour chaque port.
+
+Questions que je me pose encore :
+- Comment scanner plusieurs ports ?
+- Pourquoi un scan peut être lent ?
+- Quelle différence entre mon script et Nmap ?
+- Comment savoir quel service tourne derrière un port ?
