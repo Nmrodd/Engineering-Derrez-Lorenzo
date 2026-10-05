@@ -47,12 +47,12 @@ Pour cela, il faut utiliser la commande :
 
 Par rapport à un des exos : 
 
-Commande pour voir un fichier caché : 
+Commande pour voir un fichier caché : (-t permet également de trié par date de modification)
     ls -la 
 
 Les fichiers cachés commencent par un . 
 
-Pour voir l'index number d'un fichier : 
+Pour voir l'index number d'un fichier : (inode number)
 
 ls -i fichier
 
