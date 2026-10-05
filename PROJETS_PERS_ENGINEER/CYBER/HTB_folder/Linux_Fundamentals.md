@@ -69,3 +69,21 @@ mkdir -p Storage/local/user/documents
 ![alt text](image-5.png)
 
 
+On Linux systems : 
+
+    - There are several files that can be tremendously beneficial for penetration testers
+        // due to misconfigured permissions or insufficient security settings by the administrators
+
+        // One such important file is the /etc/passwd file.
+
+            - It contains essential information about the users on the system
+            - (usernames, user IDs (UIDs), group IDs (GIDs) and home directories)
+    
+Prise de note par rapport à certains éditeurs de Linux : 
+
+
+VIM : 
+
+![alt text](image-6.png)
+
+
