@@ -87,3 +87,24 @@ VIM :
 ![alt text](image-6.png)
 
 
+Commande "Which" : 
+    - return the path to the file or link that should be executed. 
+
+    - allow us to determine if specific programme like cURL, netcat, wget, python, gcc are available on operating system.
+
+![alt text](image-7.png)
+
+Commande 'Find' :
+
+![alt text](image-8.png)
+
+
+Exemple : 
+
+![alt text](image-9.png)
+![alt text](image-10.png)
+
+Commande "Locate" : 
+
+![alt text](image-11.png)
+
