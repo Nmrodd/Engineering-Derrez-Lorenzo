@@ -1,0 +1,259 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+
+
+\title{\textbf{TD n°5 : Initiation à l'algorithmique}}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{Exercice 0}}
+
+% Insérer image 
+
+\section*{\textbf{Exercice 1}}
+
+\subsection*{Question 1:}
+On obtient les tableaux suivant : 
+\begin{itemize}
+    \item $ T = [10, 20, 60, 50, 30, 40] $
+    \item $ T = [10, 20, 60, 50, 30, 40] $
+    \item $ T = [10, 20, 30, 50, 60, 40] $
+    \item $ T = [10, 20, 30, 40, 60, 50] $
+    \item $ T = [10, 20, 30, 40, 50, 60] $
+    \item $ T = [10, 20, 30, 40, 50, 60] $
+\end{itemize}
+
+\subsection*{Question 2}
+
+Jeu de 6 exemples pour \textit{indiceDuMinimum} :
+\\
+$
+\begin{cases}
+    & E : T = [1], i = 0
+    \\
+    & S : j = 0   
+\end{cases}
+$
+\\
+$
+\begin{cases}
+    & E : T = [1,1], i = 0
+    \\
+    & S : j = 0   
+\end{cases}
+$
+\\
+$
+\begin{cases}
+    & E : T = [3, 6, 2], i = 0
+    \\
+    & S : j = 2
+\end{cases}
+$
+\\
+$
+\begin{cases}
+    & E : T = [1, 6? 7, 2], i = 1
+    \\
+    & S : j = 3
+\end{cases}
+$
+\\
+$
+\begin{cases}
+    & E : T = [1, 6, 2, 2], i = 1
+    \\
+    & S : j = 2   
+\end{cases}
+$
+\\
+$
+\begin{cases}
+    & E : T = [12, 3, 10], i = 2
+    \\
+    & S : j = 2
+\end{cases}
+$
+
+\subsection*{Question 3}
+
+On définiti le problème \textit{IndiceDuMinimum} :
+
+\begin{algorithm}[H]
+    \caption{\textit{IndiceDuMinimum}}
+    \begin{algorithmic}[1]
+        \State E : un tableau $T$ d'entiers, et un entier i compris entre 0 et $ |T|-1$
+        \State S : un entier j compris entre i et $ |T|-1$ tel que T[j] est le minimum entre i et |T|-1.
+        \State def IndiceDuMinimum(i:int, T:Array[integer]) -> int:
+        \State \qquad int n $\leftarrow$ size(T)
+        \State \qquad int min\_ act $\leftarrow$ T[i]
+        \State \qquad int ind\_ act $\leftarrow$ i 
+        \State \qquad for k in range(i, n):
+            \State \qquad \qquad if T[k] < min\_ act:
+                \State \qquad \qquad \qquad min\_ act $\leftarrow$ T[k]
+                \State \qquad \qquad \qquad ind\_ act $\leftarrow$ k 
+        \State \Return ind\_ act 
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Evaluation de la complexité en espace}
+\begin{itemize}
+    \item On ne crée que des variables entières à chaque appel
+    \item $ \theta(1) $, et c'est optimal
+\end{itemize}
+
+
+\textbf{Evaluation de la complexité temporelle}
+\begin{itemize}
+    \item création des variables entières : $ \theta(1) $
+    \item Parcours de i à |T|-1 : $ \theta(|T|-1-i) $
+    \item Pour n = |T|-1-i la taille de l'entrée : $ \theta(n) $
+    \item Etant donné que la comparaison et les affectations sont en temps constant 
+    \item La complexité \textbf{ totale } est $\theta(n)$, et c'est optimal (car theta).
+\end{itemize}
+
+\subsection*{Question 4}
+
+Invariant de boucle pour cet algorithme : 
+\textit{"Tout élément de [i,|T|[ est inférieur ou égal à min\_ act."}
+
+\section*{\textbf{Exercice 2}}
+
+\subsection*{Question 1}
+
+\begin{lstlisting}[label=Python, caption={sontCompatibles}]
+
+def sontCompatibles(i:int, j:int, datedebut:Array[int], datefin:Array[int]) -> bool : 
+    int fin_i = datefin[i]
+    int debut_j = datedebut[j]
+    # Par symetrie des roles de i et j on peut supposer que i est le premier evenement (entre autre i < j)
+    if fin_i < debut_j : 
+        return true
+    else:
+        return false
+
+\end{lstlisting}
+
+\subsection*{Question 2}
+Supposons que l'on connaisse un évènement sélectionné. 
+
+Dès lors l'ensemble des évènements incompatibles avec ce dernier sont incompatibles pour l'ensemble sélectionné. 
+
+\subsection*{Question 3}
+
+Hypothèse : Choisir en $1^{er}$ élément un évènement de durée minimale.
+
+Ce n'est pas forcément optimal. 
+\\
+Contre exemple : 
+
+En reprenant l'exemple du cours, si l'on suit cette méthode on peut obtenir \{5, 6, 7, 8\}
+
+Or il existe au moins un sous ensemble de cardinal supérieur : \{ 1, 3, 4, 6, 7\}
+
+\subsection*{Question 4}
+
+Hypothèse : Choisir comme $1^{er}$ élément un évènement de date de fin minimale. 
+
+Cette hypothèse semblerait contribuer à une solution optimale. 
+\\
+Exemple : 
+
+En reprenant l'exemple du cours, on peut obtenir en appliquant cette hypothèse le sous-ensemble de cardinalité maximale : \{3, 4, 5, 6, 7\}
+
+\subsection*{Question 5}
+
+\textbf{Remarque :}
+Pour cette première méthode, on utilise la fonction de l'exercice 1 \textit{IndiceDuMinimum} en ajoutant une comparaison ($ \theta (1) en complexité temporelle $) qui permet de vérifier que le minimum n'a pas déjà été traité avant.
+\\ 
+Donc on garde une complexité temporelle de $ \theta(n) $ pour cette fonction. 
+
+\begin{algorithm}[H]
+    \caption{\textit{Première méthode}}
+    \begin{algorithmic}[1]   
+        \State E : i, j deux entiers, datedebut et datefin deux tableaux d'entiers
+        \State S : un tableau Res de booléen
+        \State def Selection\_evt(i:int, j:int, datedebut:int, datefin:int) -> Array[bool] :
+        \State \qquad int n $ \leftarrow $ size(datedebut)
+        \State \qquad Array[bool] selectionne $ \leftarrow $ New\_Array(n, false)
+        \State \qquad Array[bool] visites $ \leftarrow $ New\_Array(n, false)
+        \State \qquad int marquage $ \leftarrow $ 0
+        \State \qquad While marquage < n:
+        \State \qquad \qquad int j $ \leftarrow $ indiceDuMinimum(fin, visites)
+        \State \qquad \qquad selectionne[j] $ \leftarrow $ true
+        \State \qquad \qquad visites[j] $ \leftarrow $ true
+        \State \qquad \qquad marquage $ \leftarrow $ marquage + 1 
+        \State \qquad \qquad for k in range(n):
+        \State \qquad \qquad \qquad if not visites[k]:
+        \State \qquad \qquad \qquad \qquad if not sontCompatibles(k, j, datedebut, datefin):
+        \State \qquad \qquad \qquad \qquad \qquad marquage $ \leftarrow $ marquage + 1
+        \State \qquad \qquad \qquad \qquad \qquad visites[k] $ \leftarrow $ true
+        \State \qquad Libérer la mémoire de visites en fin de programme
+        \State \Return selectionne
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Evaluation de la complexité en espace}
+\begin{itemize}
+    \item 2 tableaux initialisés avec n la taille de l'entrée 
+    \item Un des deux tableaux est libéré à la fin de l'exécution 
+    \item $ \theta(2n)  \implies \theta(n)$
+\end{itemize}
+
+\textbf{Evaluation de le complexité temporelle}
+\begin{itemize}
+    \item chaque tour coûte $ \theta(n) $ 
+    \item Il peut y avoir n tours de boules
+    \item \textbf{Pire cas : } $ \theta(n^2) $
+\end{itemize}
+
+\subsection*{Question 6}
+
+Il existe une méthode permettant d'améliorer la complexité temporelle de l'algorithme précédent : 
+\begin{itemize}
+    \item effectuer un tri adapté en $ \theta(n \log (n)) $ selon la fin minimale j. 
+    \item Parcourir une unique fois en $ \theta(n) $.
+    \item On sélectionne chaque évènement compatible avec le denrier sélectionné.
+\end{itemize}
+Ainsi on aurait en temps, puis en espace : 
+\begin{itemize}
+    \item \textbf{Complexité temporelle :} $ \#f(n) = \theta(n \log (n)) + \theta(n) = \theta (n \log (n)) $
+    \item \textbf{Complexité en espace : } $ \theta(n) $ (inchangé par rapport à Q5)
+\end{itemize}
+
+\textbf{Récriture de l'algorithme : }
+
+% Ecrire l'algorithme amélioré ici : 
+
+
+\end{document}
