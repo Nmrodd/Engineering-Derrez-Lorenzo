@@ -103,8 +103,38 @@ Exemple :
 
 ![alt text](image-9.png)
 ![alt text](image-10.png)
-
+SSS
 Commande "Locate" : 
 
 ![alt text](image-11.png)
 
+A propos des RegEx : 
+
+![alt text](image-12.png)
+
+![alt text](image-13.png)
+
+![alt text](image-14.png)
+
+![alt text](image-15.png)
+
+
+
+A propos des SUID (Set User ID) et Set Group ID (SGID) :
+
+![alt text](image-16.png)
+
+
+![alt text](image-17.png)
+
+![alt text](image-18.png)
+
+![alt text](image-20.png)
+
+![alt text](image-19.png)
+
+![alt text](image-21.png)
+
+![alt text](image-22.png)
+
+![alt text](image-23.png)
