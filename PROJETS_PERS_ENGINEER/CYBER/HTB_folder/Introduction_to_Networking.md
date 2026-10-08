@@ -93,3 +93,31 @@ OSI MODEL :
 
 ![alt text](image-64.png)
 
+TCP/IP Model :
+![alt text](image-65.png)
+
+![alt text](image-66.png)
+
+![alt text](image-67.png)
+
+A propos du Network Layout : 
+        // controls the exchange of data packets 
+        
+![alt text](image-68.png)
+
+About IP Adresses : 
+
+![alt text](image-69.png)
+
+About IPv4 : 
+
+![alt text](image-70.png)
+
+![alt text](image-71.png)
+
+![alt text](image-72.png)
+![alt text](image-73.png)
+![alt text](image-74.png)
+![alt text](image-75.png)
+![alt text](image-76.png)
+
