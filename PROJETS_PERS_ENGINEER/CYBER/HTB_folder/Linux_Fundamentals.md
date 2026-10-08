@@ -138,3 +138,67 @@ A propos des SUID (Set User ID) et Set Group ID (SGID) :
 ![alt text](image-22.png)
 
 ![alt text](image-23.png)
+
+
+A propos des serveurs web  : 
+
+![alt text](image-24.png)
+
+Pour les pen. testers, les serveurs webs sont utilies pour différentes raisons : 
+    - faciliter le transfert de fichier 
+    - permettre aux testers de se connecter et d'intéragir avec le système de la cible à travers les ports HTPP ou HTPPS 
+    - En plus, les serveurs webs peuvent etre utilisés pour transporter des commandes liés au "fishing" et pour récupérer des informations sur les utilisateurs. 
+
+
+Apache server : 
+    - regroupe bcp de features permettant d'host un environnement web sécurisé 
+    - Cela permet à analyser certaines attaques 
+
+
+A propos des VPN : 
+
+    - pour les pen. testers : OpenVPN 
+        // permet de se connecter de manière sécurisée aux réseaux internet
+
+
+        // sudo apt install openvpn -y 
+
+        // Pour s'y connecter : sudo opevpn --config internal.ovpn
+
+    
+Note sur Apache : (après installation) 
+
+    - sudo systemctl start apache2
+    - en faisant sur un navigateur : http://localhost on trouvera la page qu'il faut 
+    - Il y a aussi une page de documentation que l'on peut trouver en faisait la vérification sur le terminal : sudo systemctl status apache2
+
+
+Commandes : 
+    - curl lien -> returns the website's page source of the website and get information from it. 
+
+    - wget lien -> download files from FTP or HTTP servers directly from the terminal
+
+
+
+In penetration testing :
+    - oftenly facing challenges that require creative problem solvind & out of the box thinking 
+
+
+![alt text](image-25.png)
+
+"Think of your data as valuable treasures stored in a house. The backup tools on Linux such as Rsync, Duplicity and Deja Dup act like different kinds of safes."
+
+![alt text](image-26.png)
+
+![alt text](image-27.png)
+
+![alt text](image-28.png)
+
+![alt text](image-29.png)
+
+![alt text](image-30.png)
+
+![alt text](image-31.png)
+
+![alt text](image-32.png)
+
