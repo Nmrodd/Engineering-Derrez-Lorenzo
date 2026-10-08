@@ -16,4 +16,3 @@ Information Gathering :
 Il y a différents modules qui permettent d'apprendre tout cela : 
     - Learning Process (done)
     - Linux fundamentals (In progress)
-
