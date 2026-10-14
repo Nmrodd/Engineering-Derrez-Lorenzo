@@ -2,4 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 
+// Q1 : 
+//
+
+
 
