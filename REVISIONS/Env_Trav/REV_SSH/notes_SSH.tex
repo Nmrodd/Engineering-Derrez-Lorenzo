@@ -104,4 +104,25 @@
     \item Vérifier que deux fichiers ont été crées.
 \end{enumerate}
 
+\section*{\hl{\textbf{Fichier de configurations:}}}
+
+\begin{itemize}
+    \item Il est possible de définir dans un fichier des configurations qui permettent de faciliter l'écriture de certaines commandes SSH.
+\end{itemize}
+
+\textbf{Par exemple:}
+
+\includegraphics[width=0.50\textwidth]{exemple_fichier_config.png}
+
+\subsection*{Travail à distance}
+
+\textbf{Monter le système de fichiers distant localement:}
+
+\begin{itemize}
+    \item Il est possible, via SSH, de faire apparaître vos fichiers stockés à l'ENSEIRB, localement dans notre arborescence.
+    \item Similaire à DropBox, G.Drive, ... 
+    \item sshfs [user@]host:[dir] mountpoint
+    \item Le contenu d dir sera accessible dans mounpoint
+\end{itemize}
+
 \end{document}
