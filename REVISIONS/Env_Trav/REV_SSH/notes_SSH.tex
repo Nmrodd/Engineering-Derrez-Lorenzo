@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{enumitem}
+
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+
+\usepackage{soul} % IMPORTANT : POUR SURLIGNER AVEC \hl en fin de ligne 
+\usepackage{xcolor}
+
+
+\title{\sethlcolor{purple!30}\hl{\textbf{Fiche de révisions: SSH -- Environnement de travail}}}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section*{\hl{\textbf{Introduction}}}
+
+\begin{itemize}
+    \item Permet d'ouvrir un terminal sur une machine à distance
+    \item Chiffrée et authentifiée
+    \item Travailler à distance dans un shell 
+    \item exécuter une commande sur une autre machine 
+    \item Copier des fichiers avec scp ou sftp 
+    \item monter un système de fichiers distant avec sshfs
+    \item \textbf{Remarque:} une fois connecté, les commandes agissent sur la machine distante, pas sur la machine locale.
+\end{itemize}
+
+\section*{\hl{\textbf{Fonctionnement}}}
+
+\subsection*{\textbf{Connexion à une machine distante:}}
+
+\textbf{ssh [-X] login@hostname}
+
+\begin{itemize}
+    \item login : votre login sur la machine distante; 
+    \item hostname : nom de la machine distante; 
+    \item -X : redirection graphique si elle est nécessaire 
+    \item vous arrivez dans votre HOME distant
+\end{itemize}
+
+\section*{\hl{\textbf{Copies à distance}}}
+
+\subsection*{\textbf{Copie \underline{vers} une machine distante:}}
+\textbf{scp [-r] src1 [src2 ... srcN] login@hostname:dst\_path}
+
+\begin{itemize}
+    \item dst\_path : chemin absolu ou relatif au répertoire personnel distant; 
+    \item -r : copie récursive d'un répertoire; 
+    \item les règles sont proches de celles de cp.
+\end{itemize}
+
+\subsection*{\textbf{Copier \underline{depuis} une machine distante:}}
+
+\textbf{scp login@hostname:src\_path dst\_ path}
+
+\section*{\hl{\textbf{Les clés SSH}}}
+
+\begin{itemize}
+    \item il est lourd de devoir retaper son mot de passe ou sa passphrase à chaque connexion/execution 
+    \item Il est possible d'utiliser un mécanisme basé sur un système de clé privé/clé publique; 
+\end{itemize}
+
+\textbf{Principe:}
+\begin{itemize}
+    \item Clé publique à copier sur la machine distante: peut être vue comme un verrou.
+    \item Clé privée qui \textbf{reste sur la machine locale}: peut être vu comme l'unique clé qui ouvre le verrou.
+    \item \textbf{REGLE :} ne jamais copier, envoyer, ou partager la clé privée.
+\end{itemize}
+
+\textbf{Créer un couple clés privée/publique:}
+\begin{enumerate}
+    \item Créer une clé avec ssh-keygen : 
+    \subitem ssh-keygen -t ed25519
+    \item Accepter le nom proposé par défaut pour le fichier de clé.
+    \item Mettre une passphrase : une phrase qui protège la clé.
+    \item Vérifier que deux fichiers ont été crées.
+\end{enumerate}
+
+\end{document}
