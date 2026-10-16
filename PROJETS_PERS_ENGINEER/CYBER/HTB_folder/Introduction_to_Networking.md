@@ -121,3 +121,13 @@ About IPv4 :
 ![alt text](image-75.png)
 ![alt text](image-76.png)
 
+About subnetting ; 
+
+![alt text](image-77.png)
+
+![alt text](image-78.png)
+
+![alt text](image-79.png)
+
+![alt text](image-80.png)
+
