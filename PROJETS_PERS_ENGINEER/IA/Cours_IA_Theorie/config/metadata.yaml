@@ -1,0 +1,23 @@
+title: "INTELLIGENCE ARTIFICIELLE"
+subtitle: "Cours theorique illustre — mathématiques, ML, deep learning, NLP et LLM, recherche et ingenierie"
+author: "Support personnel d'autoformation en école d'ingénieurs"
+date: "Edition d'octobre 2026 · Complément du Manuel IA — Grands Défis"
+lang: fr-FR
+fontsize: 11pt
+mainfont: "Lato"
+monofont: "DejaVu Sans Mono"
+geometry:
+ - top=2.2cm
+ - bottom=2.1cm
+ - left=2.25cm
+ - right=2.25cm
+colorlinks: true
+linkcolor: blue
+urlcolor: blue
+toc: true
+toc-title: "Sommaire détaillé"
+numbersections: false
+papersize: a4
+linestretch: 1.12
+documentclass: report
+classoption: openany
