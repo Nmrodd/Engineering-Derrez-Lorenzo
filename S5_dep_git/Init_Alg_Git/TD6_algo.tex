@@ -1,0 +1,259 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{float}
+
+\usepackage{amssymb} %Ajoute des symboles mathématiques comme R, Z, forall, exists, etc....
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+
+\lstdefinestyle{monstyle}{
+    backgroundcolor=\color{white},
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+}
+\lstset{style=monstyle}
+
+
+\title{\textbf{Rapport de TD n°6 : Initiation à l'algorithmique}}
+\author{Derrez Lorenzo}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{Exercice 0}}
+
+\includegraphics[width=15cm]{exo0_TD6.png}
+
+\section*{\textbf{Exercice 1}}
+
+\subsection*{Question 1:}
+
+\begin{itemize}
+    \item Il faut des entiers long en entrée. Le cours définit le type Longint en Python I1 avec int64. 
+    \item \textbf{Remarque :} Comme on modifie par effets de bords : Longint, on suppose que son allocation a été effectuée lors du main puis une fois que l'on retourne on libèrera la mémoire avec freeLongint.
+\end{itemize}
+
+\begin{lstlisting}[label=Python, caption={Algo1\_rec}]
+def algo1_rec (n : Longint) -> Longint : 
+    if n <= 10: 
+        return 10
+    else:
+        if (n%2) != 0:
+            return algo1_rec(n+3)+algo1_rec(n+1)
+        else:
+            return algo1_rec(n-2)+algo1_rec(n-7)+algo1_rec(shift(n,-1))
+\end{lstlisting}
+
+\subsection*{Question 2}
+
+\begin{itemize}
+    \item Evaluation de la complexité en espace : 
+    \subitem Chacune des variables occupe une place constante 
+    \subitem Il y a des appels récursifs $\implies$ augmente la place occupée sur la pile d'appels $\implies$ augmente la complexité en espace.
+    \subitem Globalement (avec le shift), on descend de 2 en 2 $\implies \frac{n}{2}$ appels empilés $\implies \#espace = \theta(n)$
+    \item Evaluation de la complexité en temps : 
+    \subitem Au cours de chaque appel, on peut faire :
+        \subsubitem une comparaison 
+        \subsubitem un modulo 
+        \subsubitem des affectations 
+        \subsubitem des appels récursifs 
+\end{itemize}
+
+\textbf{Pour la complexité en temps : } (arbre d'appels) 
+
+\includegraphics[width=15cm]{img_test_Q2_TD6.png} etc...
+
+\begin{itemize}
+    \item Chaque appel engendre plusieurs sous calculs sur des arguments qui diminuent lentement. (n-2, n-4, etc...)
+    \item Cela entraîne une \textbf{complexité en temps exponentielle.}
+\end{itemize}
+
+\subsection*{Question 3}
+
+\begin{itemize}
+    \item une des solutions pour éviter de calculer une seconde fois une valeur est la \textbf{mémoisation}
+    \item memo : tableau de (n+4) initialiée à -1.
+\end{itemize}
+
+\begin{lstlisting}[label=Python, caption={Algo2\_rec}]
+def algo2_rec(memo : Array[integer], n : Longint) -> Longint : 
+    if memo[n] != -1:
+        return memo[n]
+    if n<=10:
+        resultat = 10
+    elif (n%2) != 0:
+        resultat = algo2_rec(memo, n+1)+algo2_rec(memo, n+3)
+    else: 
+        resultat = algo2_rec(memo, n-2)+algo2_rec(memo, n-7)+algo2_rec(memo, shift(n, -1))
+    memo[n] = resultat
+    return resultat
+\end{lstlisting}
+
+\subsection*{Question 4}
+
+\includegraphics[width=15cm]{image_Q4_exo1_TD6.png}
+
+\begin{itemize}
+    \item Complexité en espace : 
+    \subitem $ \#f(n) = \theta(n)_{pile memoire} + \theta(n\log n)_{memo} = \theta(n) $
+    \item Complexité en temps : 
+    \subitem $ \theta(n) $ malgré les appels récursifs car memo permet de récupérer directemen les valeurs déjà calculées.
+\end{itemize}
+
+\section*{\textbf{Exercice 2}}
+
+\subsection*{Question 1}
+
+\begin{itemize}
+    \item Le problème est syntaxiquement proche du problème \textit{LongeurMaxPlateau}.
+\end{itemize}
+
+\subsection*{Question 2}
+
+\begin{itemize}
+    \item Principe : 
+    \subitem tri en $\theta(n\log n) < \theta(n^2) $ 
+    \subitem parcours unique en $\theta(n)$ 
+\end{itemize}
+
+\begin{lstlisting}[label=python, caption={isDiversity}]
+def isDiversity(i : integer, j : integer, T : Array[integer]) -> bool : 
+    S = Array.copy(T[i,j])
+    trifusion(S)
+
+    for k in range(1, len(S)):
+        if S[k] ==  S[k-1]:
+            return false
+    return true
+\end{lstlisting}
+
+\subsection*{Question 3}
+
+\begin{itemize}
+    \item Evaluation de la complexité temporelle : 
+    \subitem $ \# f(n) = \theta(n)_{copy} + \theta(n \log n)_{trifusion} + \theta(n)_{parcours unique} = \theta(n \log n) < \theta(n^2) $
+\end{itemize}
+
+\subsection*{Question 4}
+
+\begin{lstlisting}[label=python, caption={max\_variety}]
+def max_variety(T: Array[integer]) -> int:
+    curr_max = 1
+    max = 0
+    curr_i = 0
+    curr_j = 1
+
+    while curr_i != len(T):
+        different = False
+
+        # Verifier que le nouvel element est different de tous les elements du sous-tableau courant.
+        if curr_j < len(T):
+            different = True
+            for k in range(curr_i, curr_j):
+                if T[k] == T[curr_j]:
+                    different = False
+                    break
+
+        if different:
+            curr_max = curr_max + 1
+            curr_j = curr_j + 1
+        else:
+            if curr_max > max:
+                max = curr_max
+
+            curr_i = curr_i + 1
+            curr_j = curr_i + 1
+            curr_max = 1
+
+    return max
+\end{lstlisting}
+
+\subsection*{Question 5}
+
+\begin{itemize}
+    \item Evaluation de la complexité en espace : 
+    \subitem affectation, introduction de variables entières, comparaisons $ \implies \theta(1) $
+    \item Evaluation de la complexité en temps : 
+    \subitem Parcours de curr\_i à len(T) $ \implies \theta(n) $ (où n = len(T) - curr\_i) 
+    \subitem Au sein de la boucle dans le pire des cas, on vérifie tous les cas possibles pour chaque indice $\theta(n^2)$ 
+    \subitem $ \implies \theta(n^3) $ au total. 
+\end{itemize}
+
+\subsection*{Question 6}
+
+\begin{lstlisting}[label=python, caption={\textit{nextIndex}}]
+def nextIndex(T):
+    n = len(T)
+    U = [n] * n
+
+    i = 0
+    while i < n:
+        for j in range(n - 1, i, -1):
+            if T[i] == T[j]:
+                U[i] = j
+        i += 1
+
+    return U
+\end{lstlisting}
+
+\begin{itemize}
+    \item \textbf{Remarque :} Cette méthode a une complexité temporelle $\theta(n^2)$ et en espace $\theta(n)$. 
+    \subitem Elle n'est peut être pas optimale. Une solution à l'aide d'un dictionnaire pourrait potentiellement éviter les doubles boucles imbriquées. Dès lors on aurait une complexité en $\theta(n)$ 
+\end{itemize}
+
+\subsection*{Question 7}
+
+On considère le tableau de longueur $n=20$ suivant :
+\[
+\begin{aligned}
+T = [&1,2,1,3,4,2,5,6,3,7,4,8,5,2,6,1,7,3,8,4].
+\end{aligned}
+\]
+
+Son tableau prochain indice est :
+\[
+\begin{aligned}
+U = [&2,5,15,8,10,13,12,14,17,16,19,18,20,20,20,20,20,20,20,20].
+\end{aligned}
+\]
+Les indices commencent à $0$. La valeur $20$ indique
+qu'il n'existe aucune occurrence suivante.
+Par exemple, $U[3]=8$ car $T[3]=T[8]=3$,
+sans autre occurrence de $3$ entre ces deux indices.
+
+Le sous-tableau
+\[
+T[8:16]=[3,7,4,8,5,2,6,1]
+\]
+contient huit éléments deux à deux différents :
+c'est donc une diversité de longueur $8$.
+
+De plus, $T$ ne contient que huit valeurs distinctes,
+les entiers de $1$ à $8$. Aucune diversité ne peut
+donc avoir une longueur supérieure à $8$.
+
+Ainsi, la sortie de la fonction est :
+\[
+\boxed{\operatorname{variety}(T)=8}.
+\]
+
+\subsection*{Question 8}
+
+
+
+\end{document}
