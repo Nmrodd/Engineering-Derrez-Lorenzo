@@ -32,6 +32,8 @@ def test_ajout_meme_id_compte() ->None:
 
     with pytest.raises(KeyError):
         banque.ajouter_compte(compte2)
+    
+    assert banque.obtenir_compte("CPT-001") is compte1
 
 def test_ajout_dans_deuxbanque() -> None:
     banque_A = Banque("BANK-A")
@@ -47,3 +49,8 @@ def test_ajout_dans_deuxbanque() -> None:
 
     assert banque_A.comptes is not banque_B.comptes
 
+def test_obtenir_compte_inexistant() -> None:
+    banque = Banque("BANK-A")
+
+    with pytest.raises(KeyError):
+        banque.obtenir_compte("CPT-404")
