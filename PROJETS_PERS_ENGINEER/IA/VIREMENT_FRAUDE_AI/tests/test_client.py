@@ -1,3 +1,5 @@
+import pytest
+
 from structure_banque.client import Client
 
 ### First Test : Client.py ###
@@ -17,3 +19,7 @@ def test_independance_clients() -> None:
     alice = Client("CT-002", "Alice")
 
     assert bob is not alice
+
+def test_identifiant_vide_refuse() -> None:
+    with pytest.raises(ValueError):
+        Client("", "Alice")
