@@ -12,8 +12,10 @@
 
 class Client:
     def __init__(self, client_id:str, nom:str) -> None:
+
+        if not client_id.strip() or not nom.strip():
+            raise ValueError("ID or Name Error")
+
         self.nom = nom.strip()
-        if(client_id.strip() == ""):
-            raise ValueError("ID Error")
-        else:
-            self.client_id = client_id.strip()
+        self.client_id = client_id.strip()
+

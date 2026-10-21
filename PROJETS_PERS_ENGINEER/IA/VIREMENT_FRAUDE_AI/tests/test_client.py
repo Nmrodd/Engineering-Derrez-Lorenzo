@@ -23,3 +23,19 @@ def test_independance_clients() -> None:
 def test_identifiant_vide_refuse() -> None:
     with pytest.raises(ValueError):
         Client("", "Alice")
+
+def test_identifiant_espaces_refuse() -> None:
+    with pytest.raises(ValueError):
+        Client("   ", "Alice")
+
+
+def test_nom_vide_refuse() -> None:
+    with pytest.raises(ValueError):
+        Client("CT-003", "")
+
+
+def test_suppression_espaces() -> None:
+    client = Client("  CT-004  ", "  Charlie  ")
+
+    assert client.client_id == "CT-004"
+    assert client.nom == "Charlie"
