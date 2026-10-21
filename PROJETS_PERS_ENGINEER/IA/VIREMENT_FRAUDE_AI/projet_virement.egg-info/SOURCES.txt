@@ -1,0 +1,10 @@
+pyproject.toml
+projet_virement.egg-info/PKG-INFO
+projet_virement.egg-info/SOURCES.txt
+projet_virement.egg-info/dependency_links.txt
+projet_virement.egg-info/requires.txt
+projet_virement.egg-info/top_level.txt
+structure_banque/__init__.py
+structure_banque/client.py
+structure_banque/compte.py
+tests/test_client.py
