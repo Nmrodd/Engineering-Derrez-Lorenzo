@@ -3,6 +3,7 @@
 
 from structure_banque.banque import Banque
 from structure_banque.virement import Virement
+from structure_banque.credit import Credit
 
 def executer_virement(virement: Virement, banques: dict[str, Banque]) -> None:
     if virement.banque_source_id not in banques or virement.banque_destination_id not in banques:
@@ -33,3 +34,19 @@ def executer_virement(virement: Virement, banques: dict[str, Banque]) -> None:
         virement.statut = "REFUSE"
         raise ValueError("Solde insuffisant")
     
+def executer_credit(
+    credit: Credit, 
+    banques: dict[str, Banque], 
+    journal_credits: dict[str, Credit]
+) -> None:
+
+    if credit.banque_id not in banques:
+        raise KeyError("Mauvais identifiant de banque") 
+    if credit.statut == "EN_ATTENTE" and credit.credit_id not in journal_credits:
+        recup_compte = banques[credit.banque_id].obtenir_compte(credit.compte_id)
+        recup_compte.solde_centimes += credit.montant_centimes
+        journal_credits[credit.credit_id] = credit 
+        credit.statut = "EXECUTE"
+    else:
+        raise ValueError("Statut du crédit erronné")
+

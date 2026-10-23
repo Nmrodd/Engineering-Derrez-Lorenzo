@@ -3,6 +3,7 @@ import pytest
 from structure_banque.banque import Banque
 from structure_banque.virement import Virement
 from structure_banque.operations import executer_virement
+from structure_banque.operations import executer_credit
 from structure_banque.credit import Credit 
 from structure_banque.client import Client
 from structure_banque.compte import Compte
@@ -69,3 +70,32 @@ def test_credit_identifiant_vide_refuse() -> None:
             10000, "PARRAINAGE"
         )
 
+def test_credit_scenario() -> None:
+    banque_a = Banque("BANK-A")
+    client = Client("CT-001", "Alice")
+    compte = Compte("BANK-A", "CPT-001", "CT-001")
+
+    banque_a.ajouter_client(client)
+    banque_a.ajouter_compte(compte)
+
+    reseau = {"BANK-A": banque_a}
+    journal_credits = {}
+
+    credit = Credit(
+        "CR-001",
+        "BANK-A",
+        "CPT-001",
+        10000,
+        "PARRAINAGE"
+    )
+    executer_credit(credit, reseau, journal_credits)
+    assert compte.solde_centimes == 10000
+    assert credit.statut == "EXECUTE"
+    assert journal_credits["CR-001"] is credit
+
+    with pytest.raises(ValueError):
+        executer_credit(credit, reseau, journal_credits)
+
+    assert compte.solde_centimes == 10000
+    assert credit.statut == "EXECUTE"
+    assert len(journal_credits) == 1
