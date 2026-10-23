@@ -27,4 +27,3 @@ class Virement:
         self.compte_destination_id = compte_destination_id.strip()
         self.montant_centimes = montant_centimes
         self.statut = "EN_ATTENTE"
-        
