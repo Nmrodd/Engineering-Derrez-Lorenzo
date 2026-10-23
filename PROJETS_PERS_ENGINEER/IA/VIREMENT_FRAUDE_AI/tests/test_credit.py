@@ -96,6 +96,27 @@ def test_credit_scenario() -> None:
     with pytest.raises(ValueError):
         executer_credit(credit, reseau, journal_credits)
 
+    credit_doublon = Credit(
+    "CR-001",
+    "BANK-A",
+    "CPT-001",
+    7000,
+    "PARRAINAGE"
+)
+
+    with pytest.raises(ValueError):
+        executer_credit(
+            credit_doublon,
+            reseau,
+            journal_credits
+        )
+
+    assert compte.solde_centimes == 10000
+    assert journal_credits["CR-001"] is credit
+    assert len(journal_credits) == 1
+    assert credit_doublon.statut == "EN_ATTENTE"
+    
     assert compte.solde_centimes == 10000
     assert credit.statut == "EXECUTE"
     assert len(journal_credits) == 1
+
