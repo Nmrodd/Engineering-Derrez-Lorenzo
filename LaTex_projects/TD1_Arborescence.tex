@@ -1,0 +1,199 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------------------------------------------------------------
+%  TD1 -- Structures arborescentes -- Exercice 2
+%  Compilation : pdflatex TD1_Structures_Arborescentes_Ex2.tex
+% ---------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+
+% ---------- Mise en forme du code ----------
+\definecolor{codebg}{RGB}{248,248,245}
+\definecolor{codekw}{RGB}{0,70,160}
+\definecolor{codestr}{RGB}{160,40,40}
+\definecolor{codenum}{RGB}{130,130,130}
+
+\lstdefinestyle{td}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{codekw}\bfseries,
+  stringstyle=\color{codestr},
+  numberstyle=\tiny\color{codenum},
+  numbers=left,
+  numbersep=8pt,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{black!20},
+  framesep=6pt,
+  xleftmargin=18pt,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  columns=fullflexible,
+  keepspaces=true,
+  morekeywords={int,bool,True,False,None},
+  literate={é}{{\'e}}1 {è}{{\`e}}1 {à}{{\`a}}1
+}
+\lstset{style=td}
+
+% ---------- Macros pour les monômes ----------
+% Monôme (coeff, degré)
+\newcommand{\mono}[2]{%
+  $\left\{\begin{array}{@{}l@{\;\;}l@{}}
+    \text{coeff} & #1\\
+    \text{degré} & #2
+  \end{array}\right.$}
+
+% Monôme avec indicateur de sentinelle (coeff, estSent, degré)
+\newcommand{\monoS}[3]{%
+  $\left\{\begin{array}{@{}l@{\;\;}l@{}}
+    \text{coeff}   & #1\\
+    \text{estSent} & #2\\
+    \text{degré}   & #3
+  \end{array}\right.$}
+
+% Flèche « ondulée » utilisée dans les notes
+\newcommand{\vers}{\;\rightsquigarrow\;}
+
+% Titres des questions
+\newcommand{\question}[1]{\par\medskip\noindent\textbf{#1}\quad}
+
+\renewcommand{\arraystretch}{1.25}
+\setlength{\parindent}{0pt}
+
+\title{\textbf{TD1 -- Structures arborescentes}\\[4pt]\large Exercice 2}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-4em}
+
+% ===============================================================
+\section*{Exercice 2}
+
+% ---------------------------------------------------------------
+\question{Q1 /}
+Un polynôme est un tableau de monômes :
+\[
+  x^4 + 3x^{100} \vers
+  \begin{array}{|c|c|}
+    \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1}\\ \hline
+    x^4 & 3x^{100} \\ \hline
+  \end{array}
+\]
+
+\begin{lstlisting}
+def polynome(p: Array[monomes]) -> None:
+    int nb_termes = len(p)
+
+    for i in range(0, nb_termes):
+
+        p[i].coeff = p[i].degre * p[i].coeff
+        if p[i].degre != 0:
+            p[i].degre = p[i].degre - 1
+\end{lstlisting}
+
+% ---------------------------------------------------------------
+\question{Q2 /}
+$x \mapsto x^4 + 3x^{100}$
+
+\subsection*{Représentation 1}
+
+\begin{center}
+monomes $\vers$\quad
+\begin{tabular}{|c|c|}
+  \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1}\\ \hline
+  \mono{3}{100} & \mono{1}{4} \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Représentation 2 \normalfont(1 sentinelle)}
+
+\begin{center}
+monomes $\vers$\quad
+\begin{tabular}{|c|c|c|}
+  \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2}\\ \hline
+  \monoS{0}{1}{0} & \monoS{3}{0}{100} & \monoS{1}{0}{4} \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Représentation 3 \normalfont(2 sentinelles)}
+
+\begin{center}
+monomes $\vers$\quad
+\begin{tabular}{|c|c|c|c|}
+  \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} &
+  \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3}\\ \hline
+  \monoS{0}{1}{0} & \monoS{3}{0}{100} & \monoS{1}{0}{4} & \monoS{0}{1}{0} \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection*{Représentation 4}
+% L'indice de la case correspond au degré : toutes les cases sont
+% initialisées avec le monôme nul, sauf celles des degrés 4 et 100.
+
+\begin{center}
+monomes $\vers$\quad
+\begin{tabular}{|c|c|c|c|c|c|}
+  \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{}  &
+  \multicolumn{1}{c}{4} & \multicolumn{1}{c}{}  & \multicolumn{1}{c}{100}\\ \hline
+  \mono{0}{0} & \mono{0}{0} & $\cdots\cdots$ & \mono{1}{4} & $\cdots\cdots$ & \mono{3}{100} \\ \hline
+\end{tabular}
+\end{center}
+
+% ---------------------------------------------------------------
+\question{Q3 /}
+Représentation canonique du polynôme
+$x \mapsto 1\cdot x^{100} + 0\cdot x^{6} + x^{4} + 2\cdot x^{100}$ :
+
+\begin{center}
+monomes $\vers$\quad
+\begin{tabular}{|c|c|}
+  \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1}\\ \hline
+  \mono{1}{4} & \mono{3}{100} \\ \hline
+\end{tabular}
+\end{center}
+
+% ---------------------------------------------------------------
+\question{Q4 /}
+
+\begin{itemize}[leftmargin=2em, itemsep=2pt]
+  \item[] \textbf{Auxiliaire 1 :} vérifier le coeff non nul.
+  \item[] \textbf{Auxiliaire 2 :} vérifier si le degré est déjà dans la table
+          et additionner leurs coefficients.
+  \item[] \textbf{Auxiliaire 3 :} tri des monômes par degré croissant.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\question{Q5 /}
+
+\begin{lstlisting}
+def sont_egaux(pol1: Array[monomes], pol2: Array[monomes]) -> bool:
+
+    pol1 = canonique(pol1)
+    pol2 = canonique(pol2)
+
+    int t1 = size(pol1)
+    int t2 = size(pol2)
+    if t1 != t2:
+        return False
+    int res = True
+    for i in range(0, t1):
+
+        if (pol1[i].degre != pol2[i].degre) or (pol1[i].coeff != pol2[i].coeff):
+            res = False
+
+    return res
+\end{lstlisting}
+
+\end{document}
