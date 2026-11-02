@@ -120,3 +120,24 @@ def test_credit_scenario() -> None:
     assert credit.statut == "EXECUTE"
     assert len(journal_credits) == 1
 
+def test_credit_compte_inconnu() -> None:
+    banque_a = Banque("BANK-A")
+    client = Client("CT-001", "Alice")
+    compte = Compte("BANK-A", "CPT-001", "CT-001")
+
+    banque_a.ajouter_client(client)
+    banque_a.ajouter_compte(compte)
+
+    reseau = {"BANK-A": banque_a}
+    journal_credits = {}
+
+    credit = Credit(
+        "CR-001",
+        "BANK-B",
+        "CPT-001",
+        10000,
+        "PARRAINAGE"
+    )
+
+    with pytest.raises(KeyError):
+        executer_credit(credit, reseau, journal_credits)

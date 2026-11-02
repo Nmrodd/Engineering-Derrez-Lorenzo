@@ -7,7 +7,7 @@ class Credit:
         compte_id: str, 
         montant_centimes: int, 
         motif: str, 
-        statut: str="EN_ATTENTE"
+
     ) -> None:
         if not banque_id.strip() or not credit_id.strip() or not compte_id.strip() or not motif.strip():
             raise ValueError("Erreur dans la saisie d'un des identifiants") 
